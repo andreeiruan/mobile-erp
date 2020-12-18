@@ -54,6 +54,7 @@ const Login: React.FC = () => {
         return setError('Email ou senha inválidos');
       }
 
+      setLoad(false);
       await signIn(data.token);
       return data;
     } catch {

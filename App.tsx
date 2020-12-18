@@ -1,11 +1,13 @@
 import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { AuthProvider } from './src/contexts/AuthContext';
-import Login from './src/screens/Login';
+import SignUp from './src/screens/SignUp';
 
 export default function App() {
   return (
     <AuthProvider>
-      <Login />
+      <SignUp />
+      <StatusBar style="dark" />
     </AuthProvider>
   );
 }

@@ -23,6 +23,7 @@ import useAuth from '../../hooks/useAuth';
 
 type RootStackParamList = {
   SignUp: undefined
+  Sales: undefined
 }
 
 interface Props{
@@ -65,7 +66,7 @@ const Login: React.FC<Props> = ({ navigation }: Props) => {
 
       setLoad(false);
       await signIn(data.token);
-      return data;
+      return navigation.navigate('Sales');
     } catch {
       setLoad(false);
       return setError('Houve um erro inesperado');

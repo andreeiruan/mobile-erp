@@ -27,5 +27,6 @@ module.exports = {
     'react/style-prop-object': 'off',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
+    'import/prefer-default-export': 'off',
   },
 };

@@ -25,5 +25,7 @@ module.exports = {
     'import/no-extraneous-dependencies': ['error', { devDependencies: true, optionalDependencies: true, peerDependencies: true }],
     'no-use-before-define': 'off',
     'react/style-prop-object': 'off',
+    'import/extensions': 'off',
+    'import/no-unresolved': 'off',
   },
 };

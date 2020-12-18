@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback,
 } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import api from '../../services/api';
 
@@ -20,7 +21,15 @@ import PassPng from '../../assets/pass.png';
 import StandardButton from '../../components/StandardButton';
 import useAuth from '../../hooks/useAuth';
 
-const Login: React.FC = () => {
+type RootStackParamList = {
+  SignUp: undefined
+}
+
+interface Props{
+  navigation: StackNavigationProp<RootStackParamList, 'SignUp'>
+}
+
+const Login: React.FC<Props> = ({ navigation }: Props) => {
   const [email, setEmail] = useState<string>('');
   const [pass, setPass] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -109,7 +118,10 @@ const Login: React.FC = () => {
             <TextForgotPassword>Esqueceu sua senha?</TextForgotPassword>
           </ButtonForgotPassword>
 
-          <ButtonSignUp activeOpacity={0.7}>
+          <ButtonSignUp
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('SignUp')}
+          >
             <TextSignUp>Não tem uma conta? Registre-se</TextSignUp>
           </ButtonSignUp>
 

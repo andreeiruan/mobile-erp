@@ -3,6 +3,7 @@ import {
   Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback,
 } from 'react-native';
 
+import { StackNavigationProp } from '@react-navigation/stack';
 import api from '../../services/api';
 
 import {
@@ -16,7 +17,16 @@ import PassPng from '../../assets/pass.png';
 import UserPng from '../../assets/user.png';
 import StandardButton from '../../components/StandardButton';
 
-const SignUp: React.FC = () => {
+type RootStackParamList = {
+  Login: undefined
+  ConfirmationEmailSignUp: { userID: string }
+}
+
+interface Props{
+  navigation: StackNavigationProp<RootStackParamList, 'ConfirmationEmailSignUp'>
+}
+
+const SignUp: React.FC<Props> = ({ navigation }: Props) => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -71,8 +81,7 @@ const SignUp: React.FC = () => {
       }
 
       setLoad(false);
-      console.log(data);
-      return data;
+      return navigation.navigate('ConfirmationEmailSignUp', { userID: data.id });
     } catch {
       setLoad(false);
       return setError('Houve um erro inesperado, tente novamente');

@@ -14,19 +14,22 @@ import SellActivePng from '../assets/sellActive.png';
 import StockActivePng from '../assets/stockActive.png';
 import ShoppingActivePng from '../assets/shoppingActive.png';
 import SettingsActivePng from '../assets/settingsActive.png';
+import { colors } from '../styles.global';
 
 const Tab = createBottomTabNavigator();
 
 const PrivateRoutes: React.FC = () => (
   <Tab.Navigator
     tabBarOptions={{
-      activeBackgroundColor: '#2ab5d1',
-      inactiveBackgroundColor: '#2ab5d1',
-      activeTintColor: '#207D78',
-      inactiveTintColor: '#fff',
-      labelStyle: { fontSize: 13, marginBottom: 5 },
+      activeBackgroundColor: colors.backgroundColor,
+      inactiveBackgroundColor: colors.backgroundColor,
+      activeTintColor: colors.primaryColor,
+      inactiveTintColor: colors.borderColors,
+      labelStyle: { fontSize: 13, marginBottom: 5, fontWeight: '600' },
       style: {
         height: 55,
+        borderTopWidth: 1,
+        borderColor: colors.primaryColor,
       },
       iconStyle: {
         marginTop: 10,

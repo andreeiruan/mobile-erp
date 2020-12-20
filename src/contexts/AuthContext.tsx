@@ -37,7 +37,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       return setAuthenticated(false);
     }
 
-    const { status } = await api.get('/bot/history', { headers: { Authorization: `Bearer ${token}` } }); // todo: route token validation
+    const { status } = await api.get('/bot/history'); // todo: route token validation
     if (status !== 200) {
       return setAuthenticated(false);
     }

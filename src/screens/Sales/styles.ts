@@ -1,5 +1,4 @@
 import { LinearGradient } from 'expo-linear-gradient';
-// @ts-ignore
 import styled from 'styled-components/native';
 import { colors } from '../../styles.global';
 
@@ -53,6 +52,10 @@ export const ScrollSale = styled.ScrollView`
   padding-top: 50px;
 `;
 
+export const BoxDaySale = styled.View`
+  margin: 10px 0;
+`;
+
 export const TextDateSale = styled.Text`
   color: ${colors.primaryColor};
   font-size: 25px;
@@ -71,7 +74,7 @@ export const BoxSale = styled(LinearGradient)`
 `;
 
 export const ButtonSale = styled.TouchableOpacity`
-  height: 25%;
+  height: 45px;
   margin-top: 10px;
 `;
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
+import Lottie from 'lottie-react-native';
 import api from '../../services/api';
 
 import {
@@ -7,9 +7,11 @@ import {
   TextAmountSales, BoxSelectMonth, ButtonPN,
   TextButton, ButtonMonth, ScrollSale, BoxSale,
   TextSale, ButtonSale, TextDateSale, TextTitleSales,
+  BoxDaySale,
 } from './styles';
 import ModalSale from '../../components/ModalSale';
 import { colors } from '../../styles.global';
+import Loading from '../../animations/loading.json';
 
 interface Sale{
   confirmPay: boolean
@@ -24,38 +26,27 @@ interface Sale{
 }
 
 const Sales: React.FC = () => {
-  const [sales, setSales] = useState<Sale[]>([]);
+  const [sales, setSales] = useState<any>();
+  const [salesDay, setSalesDay] = useState<string[]>([]);
   const [loadSale, setLoadSale] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [idSale, setIdSale] = useState<string>('');
+  const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
   const [saleAmount, setSaleAmount] = useState<number>(0);
 
   async function getSales() {
     setLoadSale(true);
-    const monthAtual = new Date().getMonth() + 1;
     const { data } = await api.get('/sales', {
       params: {
-        month: monthAtual,
+        month,
       },
     });
 
-    const salesData = data.map((d: any) => ({
-      confirmPay: d.sales_confirmPay,
-      createdAt: d.sales_createdAt,
-      discount: d.sales_discount,
-      id: d.sales_id,
-      nameCliente: d.sales_nameCliente,
-      payDate: d.sales_payDate,
-      saleTotal: d.sales_saleTotal,
-      updatedAt: d.sales_updatedAt,
-      userId: d.sales_userId,
-    }));
+    setSales(data.sales);
 
-    setSales(salesData);
+    setSalesDay(Object.keys(data.sales).sort((a, b) => Number(b) - Number(a)));
 
-    if (sales.length > 0) {
-      setSaleAmount(sales.map((s) => s.saleTotal).reduce((s, n) => s + n));
-    }
+    setSaleAmount(data.amountSale);
 
     setTimeout(() => setLoadSale(false), 1000);
   }
@@ -94,46 +85,37 @@ const Sales: React.FC = () => {
       </BoxInfoSales>
 
       <ScrollSale>
-        <TextDateSale>Hoje</TextDateSale>
         {loadSale ? (
-          <>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((i) => (
-              <ShimmerPlaceHolder
-                style={{
-                  height: '35%',
-                  marginTop: 10,
-                  width: '90%',
-                  alignSelf: 'center',
-                  borderRadius: 5,
-                }}
-                visible={false}
-                key={i}
-              >
-                <BoxSale colors={[colors.primaryColor, colors.secondaryColor]}>
-                  <TextSale />
-                  <TextSale />
-                  <TextSale />
-                </BoxSale>
-              </ShimmerPlaceHolder>
-            ))}
-          </>
+          <Lottie
+            source={Loading}
+            style={{ height: 250, alignSelf: 'center' }}
+            autoPlay
+            resizeMode="center"
+          />
         ) : (
           <>
-            {sales.map((sale) => (
-              <ButtonSale
-                key={sale.id}
-                activeOpacity={0.7}
-                onPress={() => showModalSale(sale.id)}
-              >
-                <BoxSale colors={[colors.primaryColor, colors.secondaryColor]}>
-                  <TextSale>{sale.nameCliente}</TextSale>
-                  <TextSale>{`R$ ${sale?.saleTotal.toFixed(2)}`}</TextSale>
-                  <TextSale>{sale.confirmPay ? 'Pago' : 'Agendado'}</TextSale>
-                </BoxSale>
-              </ButtonSale>
+            {salesDay.map((day) => (
+              <BoxDaySale key={day}>
+                <TextDateSale>{new Date().getDate() === Number(day) ? 'Hoje' : `${day}/${month}`}</TextDateSale>
+                {sales[day].map((sale: Sale) => (
+                  <ButtonSale
+                    key={sale.id}
+                    activeOpacity={0.7}
+                    onPress={() => showModalSale(sale.id)}
+                  >
+                    <BoxSale colors={[colors.primaryColor, colors.secondaryColor]}>
+                      <TextSale>{sale.nameCliente}</TextSale>
+                      <TextSale>{`R$ ${sale?.saleTotal.toFixed(2)}`}</TextSale>
+                      <TextSale>{sale.confirmPay ? 'Pago' : 'Agendado'}</TextSale>
+                    </BoxSale>
+                  </ButtonSale>
+
+                ))}
+              </BoxDaySale>
             ))}
           </>
         )}
+
       </ScrollSale>
 
     </Container>

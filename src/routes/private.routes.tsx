@@ -45,6 +45,7 @@ const PrivateRoutes: React.FC = () => (
           focused ? (<IconsTabs image={SaleActivePng} />) : (<IconsTabs image={SalePng} />)
         ),
       })}
+
     />
     <Tab.Screen
       name="Stock"

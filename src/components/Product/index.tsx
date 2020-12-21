@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { Text } from 'react-native';
 import api from '../../services/api';
 
-import { Container } from './styles';
+import { BoxProduct, TextProduct } from './styles';
 
 interface Props{
-  id: string
+  id: string,
+  unitaryValue: number
+  amount: number
 }
 
 interface IProduct{
@@ -20,7 +21,7 @@ interface IProduct{
   updatedAt: string
 }
 
-const Product: React.FC<Props> = ({ id }: Props) => {
+const Product: React.FC<Props> = ({ id, unitaryValue, amount }: Props) => {
   const [product, setProduct] = useState<IProduct | null>();
 
   async function getProduct() {
@@ -34,9 +35,11 @@ const Product: React.FC<Props> = ({ id }: Props) => {
     }
   }, []);
   return (
-    <Container>
-      <Text>{product?.name}</Text>
-    </Container>
+    <BoxProduct>
+      <TextProduct>{product?.name}</TextProduct>
+      <TextProduct style={{ marginLeft: '10%' }}>{`R$ ${unitaryValue}`}</TextProduct>
+      <TextProduct style={{ marginLeft: '38%' }}>{amount}</TextProduct>
+    </BoxProduct>
   );
 };
 

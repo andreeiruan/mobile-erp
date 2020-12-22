@@ -37,7 +37,7 @@ export const BoxInfo = styled.View`
 `;
 
 export const ScrollProducts = styled.ScrollView`
-  padding: 25px 0;
+  margin-top: 15px;
   max-height: 65%;
 `;
 

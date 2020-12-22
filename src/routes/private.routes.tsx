@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Sales from '../screens/Sales';
@@ -21,26 +21,29 @@ import StockActivePng from '../assets/stockActive.png';
 import ShoppingActivePng from '../assets/shoppingActive.png';
 import SettingsActivePng from '../assets/settingsActive.png';
 import { colors } from '../styles.global';
+import ShoppingCart from '../screens/ShoppingCart';
 
 const Tab = createBottomTabNavigator();
 
 const Stack = createStackNavigator();
 
+const screenOptionsStack: StackNavigationOptions = {
+  headerStyle: {
+    height: 50,
+    backgroundColor: colors.primaryColor,
+  },
+  headerTitleAlign: 'center',
+  headerBackTitleVisible: false,
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+};
+
 const StackStock: React.FC = () => (
   <Stack.Navigator
     headerMode="float"
-    screenOptions={{
-      headerStyle: {
-        height: 40,
-        backgroundColor: colors.primaryColor,
-      },
-      headerTitleAlign: 'center',
-      headerBackTitleVisible: false,
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    }}
+    screenOptions={screenOptionsStack}
   >
     <Stack.Screen name="stock" component={Stock} options={{ title: 'Estoque' }} />
   </Stack.Navigator>
@@ -49,20 +52,19 @@ const StackStock: React.FC = () => (
 const StackSale: React.FC = () => (
   <Stack.Navigator
     headerMode="float"
-    screenOptions={{
-      headerStyle: {
-        height: 40,
-        backgroundColor: colors.primaryColor,
-      },
-      headerTitleAlign: 'center',
-      headerBackTitleVisible: false,
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    }}
+    screenOptions={screenOptionsStack}
   >
-    <Stack.Screen name="sale" component={Sales} options={{ title: 'Vendas' }} />
+    <Stack.Screen name="Sale" component={Sales} options={{ title: 'Vendas' }} />
+  </Stack.Navigator>
+);
+
+const StackSell: React.FC = () => (
+  <Stack.Navigator
+    headerMode="float"
+    screenOptions={screenOptionsStack}
+  >
+    <Stack.Screen name="Sell" component={Sell} options={{ title: 'Vender' }} />
+    <Stack.Screen name="ShoppingCart" component={ShoppingCart} options={{ title: 'Carrinho' }} />
   </Stack.Navigator>
 );
 
@@ -107,7 +109,7 @@ const PrivateRoutes: React.FC = () => (
     />
     <Tab.Screen
       name="Sell"
-      component={Sell}
+      component={StackSell}
       options={() => ({
         title: 'Vender',
         tabBarIcon: ({ focused }) => (

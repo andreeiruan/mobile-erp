@@ -7,7 +7,7 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const BoxInfoSales = styled(LinearGradient)`
-  margin-top: 10%;
+  margin-top: 7%;
   width: 95%;
   align-self: center;
   justify-content: center;
@@ -46,14 +46,13 @@ export const TextButton = styled.Text`
 `;
 
 export const ScrollSale = styled.ScrollView`
-  margin-top: 10px;
+  margin-top: 25px;
   background: #F0F0F0;
   margin: 0;
-  padding-top: 50px;
 `;
 
 export const BoxDaySale = styled.View`
-  margin: 10px 0;
+  margin-top: 10px;
 `;
 
 export const TextDateSale = styled.Text`

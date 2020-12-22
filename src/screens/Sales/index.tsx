@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Lottie from 'lottie-react-native';
+import { Text } from 'react-native';
 import api from '../../services/api';
 
 import {
@@ -141,7 +142,6 @@ const Sales: React.FC = () => {
         )}
 
       </ScrollSale>
-
     </Container>
   );
 };

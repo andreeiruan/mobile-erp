@@ -53,8 +53,8 @@ const Stock: React.FC = () => {
           <BoxProduct key={p.id} colors={[colors.primaryColor, colors.secondaryColor]}>
             <Row>
               <Column>
-                <TextName>{p.brand}</TextName>
-                <TextBrand>{p.name}</TextBrand>
+                <TextName>{p.name}</TextName>
+                <TextBrand>{p.brand}</TextBrand>
               </Column>
               <Column>
                 <TextAmount>{p.amount}</TextAmount>

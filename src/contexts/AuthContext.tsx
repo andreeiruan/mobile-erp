@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SplashScreen from 'expo-splash-screen';
 import api from '../services/api';
 
 export interface IAuthContextData{
@@ -32,17 +33,23 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   async function isAuthenticated() {
+    await SplashScreen.preventAutoHideAsync();
     await loadStorageData();
     if (!token) {
-      return setAuthenticated(false);
+      setAuthenticated(false);
+      await SplashScreen.hideAsync();
+      return;
     }
 
     const { status } = await api.get('/bot/history'); // todo: route token validation
     if (status !== 200) {
-      return setAuthenticated(false);
+      setAuthenticated(false);
+      await SplashScreen.hideAsync();
+      return;
     }
 
-    return setAuthenticated(true);
+    setAuthenticated(true);
+    await SplashScreen.hideAsync();
   }
 
   useEffect(() => {

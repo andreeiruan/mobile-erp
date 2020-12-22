@@ -7,8 +7,6 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "noImplicitAny": false,
-    "strict": true,
-    "typeRoots" : ["node_modules/@types", "@types"]
+    "strict": true
   }
 }

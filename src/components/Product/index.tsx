@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 
 import api from '../../services/api';
 
-import { BoxProduct, TextProduct } from './styles';
+import {
+  BoxProduct, NameProduct, TextProduct, Row,
+} from './styles';
 
 interface Props{
   id: string,
   unitaryValue: number
   amount: number
+  discount: number
 }
 
 interface IProduct{
@@ -21,7 +24,9 @@ interface IProduct{
   updatedAt: string
 }
 
-const Product: React.FC<Props> = ({ id, unitaryValue, amount }: Props) => {
+const Product: React.FC<Props> = ({
+  id, unitaryValue, amount, discount,
+}: Props) => {
   const [product, setProduct] = useState<IProduct | null>();
 
   async function getProduct() {
@@ -36,9 +41,12 @@ const Product: React.FC<Props> = ({ id, unitaryValue, amount }: Props) => {
   }, []);
   return (
     <BoxProduct>
-      <TextProduct>{product?.name}</TextProduct>
-      <TextProduct style={{ marginLeft: '10%' }}>{`R$ ${unitaryValue}`}</TextProduct>
-      <TextProduct style={{ marginLeft: '38%' }}>{amount}</TextProduct>
+      <NameProduct>{product?.name}</NameProduct>
+      <Row>
+        <TextProduct>{`Quantidade: ${amount}`}</TextProduct>
+        <TextProduct>{`Valor unitário: R$ ${unitaryValue}`}</TextProduct>
+      </Row>
+      <TextProduct>{`Desconto por unidade: R$ ${discount.toFixed(2)}`}</TextProduct>
     </BoxProduct>
   );
 };

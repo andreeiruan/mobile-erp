@@ -13,24 +13,37 @@ import ModalSale from '../../components/ModalSale';
 import { colors } from '../../styles.global';
 import Loading from '../../animations/loading.json';
 
-interface Sale{
-  confirmPay: boolean
-  createdAt: string
-  discount: number
+interface IProduct{
   id: string
-  nameCliente: string
+  unitaryValue: number
+  discountUnitary: number
+  amount: number
+  userId: string
+  productId: string
+  saleId: string
+  createdAt: string
+  updatedAt: string
+}
+
+interface Sale{
+  id: string
   payDate: string
   saleTotal: number
-  updatedAt: string
+  discount: number
   userId: string
+  confirmPay: boolean
+  nameCliente: string
+  salesProducts: IProduct[]
+  createdAt: string
+  updatedAt: string
 }
 
 const Sales: React.FC = () => {
   const [sales, setSales] = useState<any>();
+  const [sale, setSale] = useState<Sale>();
   const [salesDay, setSalesDay] = useState<string[]>([]);
   const [loadSale, setLoadSale] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [idSale, setIdSale] = useState<string>('');
   const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
   const [saleAmount, setSaleAmount] = useState<number>(0);
 
@@ -50,18 +63,29 @@ const Sales: React.FC = () => {
 
     setTimeout(() => setLoadSale(false), 1000);
   }
+
+  async function getSale(id: string) {
+    const { data } = await api.get(`/sales/${id}`);
+
+    setSale(data);
+  }
+
   useEffect(() => {
     getSales();
   }, []);
 
-  function showModalSale(id: string) {
-    setIdSale(id);
+  async function showModalSale(id: string) {
+    await getSale(id);
     setModalVisible(true);
   }
 
   return (
     <Container>
-      <ModalSale visible={modalVisible} setVisible={setModalVisible} idSale={idSale} />
+      <ModalSale
+        visible={modalVisible}
+        setVisible={setModalVisible}
+        sale={sale || undefined}
+      />
       <BoxInfoSales colors={[colors.primaryColor, colors.secondaryColor]}>
         <TextTitleSales>Vendas</TextTitleSales>
         <TextAmountSales>{`R$ ${saleAmount.toFixed(2)}`}</TextAmountSales>
@@ -97,16 +121,16 @@ const Sales: React.FC = () => {
             {salesDay.map((day) => (
               <BoxDaySale key={day}>
                 <TextDateSale>{new Date().getDate() === Number(day) ? 'Hoje' : `${day}/${month}`}</TextDateSale>
-                {sales[day].map((sale: Sale) => (
+                {sales[day].map((s: Sale) => (
                   <ButtonSale
-                    key={sale.id}
+                    key={s.id}
                     activeOpacity={0.7}
-                    onPress={() => showModalSale(sale.id)}
+                    onPress={() => showModalSale(s.id)}
                   >
                     <BoxSale colors={[colors.primaryColor, colors.secondaryColor]}>
-                      <TextSale>{sale.nameCliente}</TextSale>
-                      <TextSale>{`R$ ${sale?.saleTotal.toFixed(2)}`}</TextSale>
-                      <TextSale>{sale.confirmPay ? 'Pago' : 'Agendado'}</TextSale>
+                      <TextSale>{s.nameCliente}</TextSale>
+                      <TextSale>{`R$ ${s?.saleTotal.toFixed(2)}`}</TextSale>
+                      <TextSale>{s.confirmPay ? 'Pago' : 'Agendado'}</TextSale>
                     </BoxSale>
                   </ButtonSale>
 

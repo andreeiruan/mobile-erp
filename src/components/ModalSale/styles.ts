@@ -8,16 +8,17 @@ export const ContainerModal = styled.Modal`
 
 export const Container = styled.View`
   flex: 1;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
 `;
 
 export const Box = styled(LinearGradient)`
-  background: ${colors.primaryColor};
-  height: 75%;
-  width: 98%;
+  background: ${colors.backgroundColor};
+  height: 90%;
+  width: 100%;
   box-shadow: 0px 2px 5px #000;
   border-radius: 8px;
+  bottom: 0;
 `;
 
 export const ButtonClose = styled.TouchableOpacity`
@@ -26,39 +27,42 @@ export const ButtonClose = styled.TouchableOpacity`
   margin-right: 5px;
 `;
 
-export const Row = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 90%;
-  align-self: center;
+export const TextTitle = styled.Text`
+  font-size: 35px;
+  margin-left: 25px;
 `;
 
 export const BoxInfo = styled.View`
-  flex-direction: row;
-  align-items: center
+  margin-top: 15px;
 `;
 
-export const TextInfo = styled.Text`
-  color: #fff;
-  font-size: 22px;
-  margin: 0 10px;
+export const ScrollProducts = styled.ScrollView`
+  padding: 25px 0;
+  max-height: 65%;
 `;
 
-export const TableHeader = styled.View`
-  flex-direction: row;
-  margin-top: 20px;
-  justify-content: space-between;
-`;
-
-export const TextTableHeader = styled.Text`
-  font-size: 18px;
-  margin: 0 8px;
-  color: ${colors.textPrimaryColors}
-`;
-
-export const Hr = styled.View`
+export const BoxValueSale = styled.View`
+  font-size:  16px;
+  height: 10%;
   width: 100%;
-  border-bottom-width: 2px;
-  border-color: #fff;
+  bottom: 0;
+  position: absolute;
+  border-top-width: 1px;
+  background: ${colors.backgroundColor};
+  box-shadow: 0 2px 5px ${colors.borderColors};
+`;
+
+export const TextDiscount = styled.Text`
+  font-size: 16px;
+  margin-left: 25px;
+`;
+
+export const TextValueSale = styled.Text`
+  font-size: 20px;
+  margin-top: 10px;
+  margin-left: 25px;
+`;
+export const TextInfo = styled.Text`
+  font-size: 18px;
+  margin: 5px 0 0 25px;
 `;

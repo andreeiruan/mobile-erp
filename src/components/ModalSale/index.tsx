@@ -2,12 +2,10 @@ import React, {
   Dispatch, SetStateAction, useEffect, useState,
 } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-
 import {
-  ContainerModal, Container, Box, ButtonClose, Row, TextInfo, BoxInfo,
-  TableHeader, TextTableHeader, Hr,
+  ContainerModal, Container, Box, ButtonClose, TextTitle, BoxInfo, TextValueSale,
+  BoxValueSale, ScrollProducts, TextDiscount, TextInfo,
 } from './styles';
-import api from '../../services/api';
 import Product from '../Product';
 import { treatDate } from '../../utils/treats';
 import { colors } from '../../styles.global';
@@ -40,19 +38,14 @@ interface Sale{
 interface Props{
   visible: boolean
   setVisible: Dispatch<SetStateAction<boolean>>
-  idSale: string
+  sale: Sale | undefined
 }
 
-const ModalSale: React.FC<Props> = ({ visible, setVisible, idSale }: Props) => {
-  const [sale, setSale] = useState<Sale | null >();
+const ModalSale: React.FC<Props> = ({ visible, setVisible, sale }: Props) => {
   const [saleDate, setSaleDate] = useState<string | null>();
   const [payDate, setPayDate] = useState<string | null>();
 
-  async function getSale() {
-    const { data } = await api.get(`/sales/${idSale}`);
-
-    setSale(data);
-
+  useEffect(() => {
     if (sale?.createdAt) {
       setSaleDate(new Date(sale?.createdAt).toLocaleDateString());
     }
@@ -60,13 +53,7 @@ const ModalSale: React.FC<Props> = ({ visible, setVisible, idSale }: Props) => {
     if (sale?.payDate) {
       setPayDate(new Date(sale?.payDate).toLocaleDateString());
     }
-  }
-
-  useEffect(() => {
-    if (idSale) {
-      getSale();
-    }
-  }, [idSale]);
+  }, [sale]);
 
   return (
     <ContainerModal
@@ -75,68 +62,38 @@ const ModalSale: React.FC<Props> = ({ visible, setVisible, idSale }: Props) => {
       visible={visible}
     >
       <Container>
-        <Box colors={[colors.borderColors, '#5D6F6D']}>
+        <Box colors={[colors.backgroundColor, colors.backgroundColor]}>
           <ButtonClose activeOpacity={0.7} onPress={() => setVisible(!visible)}>
-            <AntDesign name="closecircleo" size={35} color="#fff" />
+            <AntDesign name="closecircleo" size={35} color={colors.primaryColor} />
           </ButtonClose>
-          <Row>
-            <BoxInfo>
-              <TextInfo>{sale?.nameCliente}</TextInfo>
-            </BoxInfo>
-            <BoxInfo>
-              {sale ? <TextInfo>{`R$ ${sale?.saleTotal.toFixed(2)}`}</TextInfo> : <></>}
-            </BoxInfo>
-          </Row>
-          <Row>
-            <BoxInfo>
-              <TextInfo>Descontos</TextInfo>
-            </BoxInfo>
+          <TextTitle>{sale?.nameCliente}</TextTitle>
+          <BoxInfo>
+            <TextInfo>{`Data da venda: ${treatDate(saleDate || '')}`}</TextInfo>
+            {sale?.confirmPay ? (
+              <TextInfo>{`Data do pagamento: ${treatDate(payDate || '')}`}</TextInfo>
+            ) : (<TextInfo>{`Pagamento agendado: ${treatDate(payDate || '')}`}</TextInfo>)}
+          </BoxInfo>
 
-            <BoxInfo>
-              {sale ? <TextInfo>{`R$ ${sale?.discount.toFixed(2)}`}</TextInfo> : <></>}
-            </BoxInfo>
-          </Row>
-          {saleDate ? (
-            <Row>
-              <BoxInfo>
-                <TextInfo>Data da venda</TextInfo>
-              </BoxInfo>
-              <BoxInfo>
-                {/* @ts-ignore */}
-                <TextInfo>{treatDate(saleDate)}</TextInfo>
-              </BoxInfo>
-            </Row>
-          ) : (<></>)}
-          {payDate ? (
-            <Row>
-              <BoxInfo>
-                <TextInfo>Data do pagamento</TextInfo>
-              </BoxInfo>
-              <BoxInfo>
-                {/* @ts-ignore */}
-                <TextInfo>{treatDate(payDate)}</TextInfo>
-              </BoxInfo>
-            </Row>
-          ) : (<></>)}
+          <ScrollProducts>
+            {sale ? (
+              <>
+                {sale.salesProducts.map((product) => (
+                  <Product
+                    key={product.id}
+                    id={product.productId}
+                    unitaryValue={product.unitaryValue}
+                    amount={product.amount}
+                    discount={product.discountUnitary}
+                  />
+                ))}
+              </>
+            ) : <></>}
+          </ScrollProducts>
 
-          <TableHeader>
-            <TextTableHeader>Produto</TextTableHeader>
-            <TextTableHeader>Valor Unitário</TextTableHeader>
-            <TextTableHeader>Qntd</TextTableHeader>
-          </TableHeader>
-          <Hr />
-          {sale ? (
-            <>
-              {sale.salesProducts.map((product) => (
-                <Product
-                  key={product.id}
-                  id={product.productId}
-                  unitaryValue={product.unitaryValue}
-                  amount={product.amount}
-                />
-              ))}
-            </>
-          ) : <></>}
+          <BoxValueSale>
+            <TextValueSale>{`R$ ${sale?.saleTotal.toFixed(2)}`}</TextValueSale>
+            <TextDiscount>{`Total descontos: R$ ${sale?.discount.toFixed(2)}`}</TextDiscount>
+          </BoxValueSale>
         </Box>
       </Container>
 

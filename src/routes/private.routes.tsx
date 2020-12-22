@@ -1,6 +1,12 @@
 import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import Sales from '../screens/Sales';
+import Stock from '../screens/Stock';
+import Sell from '../screens/Sell';
+import Shopping from '../screens/Shopping';
+import Settings from '../screens/Settings';
 
 import IconsTabs from '../components/IconsTabs';
 
@@ -17,6 +23,48 @@ import SettingsActivePng from '../assets/settingsActive.png';
 import { colors } from '../styles.global';
 
 const Tab = createBottomTabNavigator();
+
+const Stack = createStackNavigator();
+
+const StackStock: React.FC = () => (
+  <Stack.Navigator
+    headerMode="float"
+    screenOptions={{
+      headerStyle: {
+        height: 40,
+        backgroundColor: colors.primaryColor,
+      },
+      headerTitleAlign: 'center',
+      headerBackTitleVisible: false,
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}
+  >
+    <Stack.Screen name="stock" component={Stock} options={{ title: 'Estoque' }} />
+  </Stack.Navigator>
+);
+
+const StackSale: React.FC = () => (
+  <Stack.Navigator
+    headerMode="float"
+    screenOptions={{
+      headerStyle: {
+        height: 40,
+        backgroundColor: colors.primaryColor,
+      },
+      headerTitleAlign: 'center',
+      headerBackTitleVisible: false,
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}
+  >
+    <Stack.Screen name="sale" component={Sales} options={{ title: 'Vendas' }} />
+  </Stack.Navigator>
+);
 
 const PrivateRoutes: React.FC = () => (
   <Tab.Navigator
@@ -38,7 +86,7 @@ const PrivateRoutes: React.FC = () => (
   >
     <Tab.Screen
       name="Sales"
-      component={Sales}
+      component={StackSale}
       options={() => ({
         title: 'Vendas',
         tabBarIcon: ({ focused }) => (
@@ -49,7 +97,7 @@ const PrivateRoutes: React.FC = () => (
     />
     <Tab.Screen
       name="Stock"
-      component={Sales}
+      component={StackStock}
       options={() => ({
         title: 'Estoque',
         tabBarIcon: ({ focused }) => (
@@ -59,7 +107,7 @@ const PrivateRoutes: React.FC = () => (
     />
     <Tab.Screen
       name="Sell"
-      component={Sales}
+      component={Sell}
       options={() => ({
         title: 'Vender',
         tabBarIcon: ({ focused }) => (
@@ -69,7 +117,7 @@ const PrivateRoutes: React.FC = () => (
     />
     <Tab.Screen
       name="Shopping"
-      component={Sales}
+      component={Shopping}
       options={() => ({
         title: 'Compras',
         tabBarIcon: ({ focused }) => (
@@ -79,7 +127,7 @@ const PrivateRoutes: React.FC = () => (
     />
     <Tab.Screen
       name="Settings"
-      component={Sales}
+      component={Settings}
       options={() => ({
         title: 'Config',
         tabBarIcon: ({ focused }) => (

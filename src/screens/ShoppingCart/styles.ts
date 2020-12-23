@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputNameCliente: {
-    marginTop: '5%',
+    marginTop: '25%',
     borderBottomWidth: 0.5,
     width: '60%',
     marginLeft: '10%',
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   },
   discount: {
     fontSize: 16,
+    color: 'red',
   },
   unitaryValue: {
     fontSize: 18,

@@ -22,6 +22,7 @@ import ShoppingActivePng from '../assets/shoppingActive.png';
 import SettingsActivePng from '../assets/settingsActive.png';
 import { colors } from '../styles.global';
 import ShoppingCart from '../screens/ShoppingCart';
+import { CartProvider } from '../contexts/CartContext';
 
 const Tab = createBottomTabNavigator();
 
@@ -59,13 +60,15 @@ const StackSale: React.FC = () => (
 );
 
 const StackSell: React.FC = () => (
-  <Stack.Navigator
-    headerMode="float"
-    screenOptions={screenOptionsStack}
-  >
-    <Stack.Screen name="Sell" component={Sell} options={{ title: 'Vender' }} />
-    <Stack.Screen name="ShoppingCart" component={ShoppingCart} options={{ title: 'Carrinho' }} />
-  </Stack.Navigator>
+  <CartProvider>
+    <Stack.Navigator
+      headerMode="float"
+      screenOptions={screenOptionsStack}
+    >
+      <Stack.Screen name="Sell" component={Sell} options={{ title: 'Vender' }} />
+      <Stack.Screen name="ShoppingCart" component={ShoppingCart} options={{ title: 'Carrinho' }} />
+    </Stack.Navigator>
+  </CartProvider>
 );
 
 const PrivateRoutes: React.FC = () => (

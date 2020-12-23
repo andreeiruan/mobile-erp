@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import Lottie from 'lottie-react-native';
 import api from '../../services/api';
 

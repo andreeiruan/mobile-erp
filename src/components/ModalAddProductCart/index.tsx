@@ -96,7 +96,7 @@ const ModalAddProductCart: React.FC<Props> = ({
               onPress={removeAmount}
 
             >
-              <Ionicons name="ios-remove-circle-outline" size={28} color="#fff" />
+              <Ionicons name="remove" size={28} color="#fff" />
             </TouchableOpacity>
             <Text style={styles.textAmount}>{amount}</Text>
             <TouchableOpacity
@@ -104,7 +104,7 @@ const ModalAddProductCart: React.FC<Props> = ({
               style={styles.buttonAmount}
               onPress={addAmount}
             >
-              <Ionicons name="add-circle-outline" size={28} color="#fff" />
+              <Ionicons name="add" size={28} color="#fff" />
             </TouchableOpacity>
           </View>
           <View style={styles.footer}>
@@ -114,7 +114,6 @@ const ModalAddProductCart: React.FC<Props> = ({
             </View>
             <TouchableOpacity
               activeOpacity={0.7}
-              style={styles.buttonAmount}
               disabled={amount === 0}
               onPress={() => {
                 addCart({

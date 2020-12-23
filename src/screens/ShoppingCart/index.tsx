@@ -1,39 +1,31 @@
-import { RouteProp } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
   View, Text, SafeAreaView, TextInput, Platform, ScrollView, TouchableOpacity,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
 import { styles } from './styles';
 import api from '../../services/api';
+import { useCart } from '../../hooks/useCart';
 
 type RootStackParamList = {
-  Sell: { products: ProductOnCart[], amountCart: number }
-}
-
-interface ProductOnCart{
-  id: string
-  name: string
-  amount: number
-  unitaryValue: number
-  unitaryDiscount: number
-  amountTotal: number
+  Sell: undefined
 }
 
 interface Props{
-  route: RouteProp<RootStackParamList, 'Sell'>
   navigation: StackNavigationProp<RootStackParamList, 'Sell'>
 }
-const ShoppingCart: React.FC<Props> = ({ route, navigation }) => {
+const ShoppingCart: React.FC<Props> = ({ navigation }) => {
   const [showDatePicker, setShowDatePicker] = useState<boolean>(true);
   const [date, setDate] = useState<Date>(new Date());
   const [nameClient, setNameClient] = useState<string>();
   const [load, setLoad] = useState<boolean>(false);
   const [error, setError] = useState<string>();
 
-  const { products, amountCart } = route.params;
+  const {
+    cart, removeCart, amountCart, clearCart,
+  } = useCart();
 
   function onChangeDate(event: Event, selectedDate: Date): void {
     const currentDate = selectedDate || date;
@@ -53,7 +45,7 @@ const ShoppingCart: React.FC<Props> = ({ route, navigation }) => {
         nameCliente: nameClient,
         confirmPay: date.getDate() === new Date().getDate()
         && date.getMonth() === new Date().getMonth(),
-        products,
+        products: cart,
       });
 
       if (status !== 201) {
@@ -62,8 +54,8 @@ const ShoppingCart: React.FC<Props> = ({ route, navigation }) => {
         return;
       }
 
+      clearCart();
       setLoad(false);
-      // @ts-ignore
       navigation.navigate('Sell');
     } catch {
       setLoad(false);
@@ -100,7 +92,7 @@ const ShoppingCart: React.FC<Props> = ({ route, navigation }) => {
         )}
       </View>
       <ScrollView style={styles.scrollProducts}>
-        {products.map((p) => (
+        {cart.map((p) => (
           <View style={styles.boxProduct} key={p.id}>
             <View style={styles.row}>
               <Text style={styles.nameProduct}>{p.name}</Text>
@@ -111,6 +103,7 @@ const ShoppingCart: React.FC<Props> = ({ route, navigation }) => {
               <Text style={styles.discount}>{`R$ - ${p.unitaryDiscount.toFixed(2)}`}</Text>
             </View>
             <Text style={styles.amountValue}>{`R$ ${p.amountTotal.toFixed(2)}`}</Text>
+            <Ionicons onPress={() => removeCart(p.id)} name="trash-sharp" size={24} color="black" />
           </View>
         ))}
       </ScrollView>

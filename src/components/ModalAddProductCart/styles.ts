@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: '5%',
-
   },
   textAmount: {
     fontSize: 25,
@@ -60,7 +59,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginRight: 5,
   },
-  buttonAmount: {},
+  buttonAmount: {
+    borderWidth: 0.3,
+    borderRadius: 2,
+    borderColor: '#f0f0f0',
+  },
   boxAmountTotal: {
     flexDirection: 'row',
     alignItems: 'center',

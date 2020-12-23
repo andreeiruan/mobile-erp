@@ -1,6 +1,13 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { colors } from '../../styles.global';
+
+const styles = StyleSheet.create({
+  flatListSales: {
+    marginTop: 20,
+  },
+});
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -81,3 +88,5 @@ export const TextSale = styled.Text`
   color: ${colors.textPrimaryColors};
   font-size: 18px;
 `;
+
+export { styles };

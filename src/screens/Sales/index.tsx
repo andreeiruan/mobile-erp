@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, FlatList } from 'react-native';
 import Lottie from 'lottie-react-native';
-import { Text } from 'react-native';
 import api from '../../services/api';
 
 import {
   Container, BoxInfoSales,
   TextAmountSales, BoxSelectMonth, ButtonPN,
-  TextButton, ButtonMonth, ScrollSale, BoxSale,
+  TextButton, ButtonMonth, styles, BoxSale,
   TextSale, ButtonSale, TextDateSale, TextTitleSales,
   BoxDaySale,
 } from './styles';
@@ -44,9 +44,27 @@ const Sales: React.FC = () => {
   const [sale, setSale] = useState<Sale>();
   const [salesDay, setSalesDay] = useState<string[]>([]);
   const [loadSale, setLoadSale] = useState<boolean>(false);
+  const [loadFlatList, setLoadFlatList] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
   const [saleAmount, setSaleAmount] = useState<number>(0);
+
+  async function handleRefreshList() {
+    setLoadFlatList(true);
+    const { data } = await api.get('/sales', {
+      params: {
+        month,
+      },
+    });
+
+    setSales(data.sales);
+
+    setSalesDay(Object.keys(data.sales).sort((a, b) => Number(b) - Number(a)));
+
+    setSaleAmount(data.amountSale);
+
+    setLoadFlatList(false);
+  }
 
   async function getSales() {
     setLoadSale(true);
@@ -108,40 +126,45 @@ const Sales: React.FC = () => {
           </ButtonPN>
         </BoxSelectMonth>
       </BoxInfoSales>
+      {loadSale ? (
+        <Lottie
+          source={Loading}
+          style={{ height: 200, alignSelf: 'center', marginTop: '12%' }}
+          autoPlay
+          resizeMode="center"
+        />
+      ) : (
+        <FlatList
+          style={styles.flatListSales}
+          key="list"
+          data={salesDay}
+        // onEndReached={} // todo: pagination
+        // onEndReachedThreshold={}
+          onRefresh={handleRefreshList}
+          refreshing={loadFlatList}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <BoxDaySale key={item}>
+              <TextDateSale>{new Date().getDate() === Number(item) ? 'Hoje' : `${item}/${month}`}</TextDateSale>
+              {sales[item].map((s: Sale) => (
+                <ButtonSale
+                  key={s.id}
+                  activeOpacity={0.7}
+                  onPress={() => showModalSale(s.id)}
+                >
+                  <BoxSale colors={[colors.primaryColor, colors.secondaryColor]}>
+                    <TextSale>{s.nameCliente}</TextSale>
+                    <TextSale>{`R$ ${s?.saleTotal.toFixed(2)}`}</TextSale>
+                    <TextSale>{s.confirmPay ? 'Pago' : 'Agendado'}</TextSale>
+                  </BoxSale>
+                </ButtonSale>
 
-      <ScrollSale>
-        {loadSale ? (
-          <Lottie
-            source={Loading}
-            style={{ height: 250, alignSelf: 'center' }}
-            autoPlay
-            resizeMode="center"
-          />
-        ) : (
-          <>
-            {salesDay.map((day) => (
-              <BoxDaySale key={day}>
-                <TextDateSale>{new Date().getDate() === Number(day) ? 'Hoje' : `${day}/${month}`}</TextDateSale>
-                {sales[day].map((s: Sale) => (
-                  <ButtonSale
-                    key={s.id}
-                    activeOpacity={0.7}
-                    onPress={() => showModalSale(s.id)}
-                  >
-                    <BoxSale colors={[colors.primaryColor, colors.secondaryColor]}>
-                      <TextSale>{s.nameCliente}</TextSale>
-                      <TextSale>{`R$ ${s?.saleTotal.toFixed(2)}`}</TextSale>
-                      <TextSale>{s.confirmPay ? 'Pago' : 'Agendado'}</TextSale>
-                    </BoxSale>
-                  </ButtonSale>
+              ))}
+            </BoxDaySale>
+          )}
+        />
+      )}
 
-                ))}
-              </BoxDaySale>
-            ))}
-          </>
-        )}
-
-      </ScrollSale>
     </Container>
   );
 };

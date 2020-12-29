@@ -1,66 +1,86 @@
-import { LinearGradient } from 'expo-linear-gradient';
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 import { colors } from '../../styles.global';
 
-export const Container = styled.SafeAreaView`
-  flex: 1;
-  background: ${colors.backgroundColor};
-`;
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  boxSearch: {
+    marginTop: '20%',
+    width: '90%',
+    alignSelf: 'center',
+    marginBottom: 30,
+  },
+  label: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: colors.primaryFontColor,
+    marginBottom: 10,
+  },
+  iconInput: {
+    marginRight: 10,
+  },
+  boxInput: {
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.inputBackgroundColor,
+  },
+  inputSearch: {
+    fontSize: 22,
+  },
+  flatListProduct: {
+    marginTop: '5%',
+    width: '100%',
+    alignSelf: 'center',
+  },
+  boxProduct: {
+    width: '90%',
+    alignSelf: 'center',
+    padding: 10,
+    marginTop: 15,
+    borderRadius: 8,
+    backgroundColor: colors.menuColor,
+    shadowOffset: { width: 2, height: 2 },
+    shadowColor: '#111',
+    shadowOpacity: 2,
+    elevation: 3,
 
-export const BoxSearch = styled.View`
-  width: 90%;
-  align-self: center;
-  margin-top: 15%;
-`;
-
-export const TextSearch = styled.Text`
-  font-size: 20px;
-`;
-
-export const InputSearch = styled.TextInput`
-  border-bottom-width: 1px;
-  margin-top: 10px;
-  font-size: 22px;
-  padding-left: 5px;
-  width: 70%;
-`;
-
-export const ScrollProducts = styled.ScrollView`
-  width: 95%;
-  align-self: center;
-  margin-top: 25px;
-`;
-
-export const BoxProduct = styled(LinearGradient)`
-  margin: 5px 10px;
-  padding: 10px 10px;
-  border-radius: 5px;
-`;
-
-export const Row = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const Column = styled.View``;
-
-export const TextName = styled.Text`
-  color: ${colors.textPrimaryColors};
-  font-size: 22px;
-  `;
-
-export const TextBrand = styled.Text`
-  color: ${colors.textPrimaryColors};
-  font-size: 20px;
-`;
-
-export const TextValue = styled.Text`
-  color: ${colors.textPrimaryColors};
-  font-size: 18px;
-  `;
-
-export const TextAmount = styled.Text`
-  align-self: flex-end;
-  font-size: 18px;
-  color: ${colors.textPrimaryColors};
-`;
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  textName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: colors.primaryFontColor,
+  },
+  textValue: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: colors.primaryFontColor,
+  },
+  textAmount: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: colors.primaryFontColor,
+  },
+  buttonRegister: {
+    width: '80%',
+    padding: 15,
+    backgroundColor: colors.primaryColor,
+    marginBottom: 10,
+    marginTop: 20,
+    alignSelf: 'center',
+    borderRadius: 5,
+  },
+  textRegister: {
+    fontSize: 18,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    color: colors.highlightedFontColor,
+  },
+});

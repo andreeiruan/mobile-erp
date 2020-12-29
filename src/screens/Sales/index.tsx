@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import {
+  FlatList, Image,
+  Text, TouchableOpacity, View,
+} from 'react-native';
 import Lottie from 'lottie-react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import api from '../../services/api';
 
-import {
-  Container, BoxInfoSales,
-  TextAmountSales, BoxSelectMonth, ButtonPN,
-  TextButton, ButtonMonth, styles, BoxSale,
-  TextSale, ButtonSale, TextDateSale, TextTitleSales,
-  BoxDaySale,
-} from './styles';
+import { styles } from './styles';
+
 import ModalSale from '../../components/ModalSale';
+
 import { colors } from '../../styles.global';
+
 import Loading from '../../animations/loading.json';
+
+import previousMonth from '../../assets/previousMonth.png';
+import nextMonth from '../../assets/nextMonth.png';
 
 interface IProduct{
   id: string
@@ -36,7 +40,10 @@ interface Sale{
   nameCliente: string
   salesProducts: IProduct[]
   createdAt: string
-  updatedAt: string
+  updatedAt: string,
+  partialPayment: boolean
+  remainingAmount: number | null
+  amountPaid: number | null
 }
 
 const Sales: React.FC = () => {
@@ -49,11 +56,29 @@ const Sales: React.FC = () => {
   const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
   const [saleAmount, setSaleAmount] = useState<number>(0);
 
+  const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+  function addMonth() {
+    if (month === 12) {
+      setMonth(1);
+    } else {
+      setMonth(month + 1);
+    }
+  }
+  function removeMonth() {
+    if (month === 1) {
+      setMonth(12);
+    } else {
+      setMonth(month - 1);
+    }
+  }
+
   async function handleRefreshList() {
     setLoadFlatList(true);
     const { data } = await api.get('/sales', {
       params: {
-        month,
+        month: 12,
       },
     });
 
@@ -70,7 +95,7 @@ const Sales: React.FC = () => {
     setLoadSale(true);
     const { data } = await api.get('/sales', {
       params: {
-        month,
+        month: 12,
       },
     });
 
@@ -91,7 +116,7 @@ const Sales: React.FC = () => {
 
   useEffect(() => {
     getSales();
-  }, []);
+  }, [month]);
 
   async function showModalSale(id: string) {
     await getSale(id);
@@ -99,33 +124,53 @@ const Sales: React.FC = () => {
   }
 
   return (
-    <Container>
+    <LinearGradient
+      colors={colors.backgroundLinear}
+      style={styles.container}
+    >
       <ModalSale
         visible={modalVisible}
         setVisible={setModalVisible}
         sale={sale || undefined}
       />
-      <BoxInfoSales colors={[colors.primaryColor, colors.secondaryColor]}>
-        <TextTitleSales>Vendas</TextTitleSales>
-        <TextAmountSales>{`R$ ${saleAmount.toFixed(2)}`}</TextAmountSales>
-        <BoxSelectMonth>
-          <ButtonPN>
-            <TextButton>{'<'}</TextButton>
-          </ButtonPN>
-          <ButtonMonth>
-            <TextButton>Nov</TextButton>
-          </ButtonMonth>
-          <ButtonMonth>
-            <TextButton>Dez</TextButton>
-          </ButtonMonth>
-          <ButtonMonth>
-            <TextButton>Jan</TextButton>
-          </ButtonMonth>
-          <ButtonPN>
-            <TextButton>{'>'}</TextButton>
-          </ButtonPN>
-        </BoxSelectMonth>
-      </BoxInfoSales>
+
+      <View style={styles.header} />
+      <LinearGradient
+        colors={colors.primaryColorLinear}
+        style={styles.boxInfoSales}
+      >
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={removeMonth}
+        >
+          <Image source={previousMonth} />
+        </TouchableOpacity>
+        <View style={styles.boxInfo}>
+          <Text style={styles.titleInfo}>{`Vendas ${months[month - 1]}`}</Text>
+
+          <View style={styles.row}>
+            <Text style={styles.text}>Total de vendas</Text>
+            <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
+          </View>
+
+          <View style={styles.row}>
+            <Text style={styles.text}>Total de gastos</Text>
+            <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
+          </View>
+
+          <View style={styles.row}>
+            <Text style={styles.text}>Lucro total</Text>
+            <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
+          </View>
+
+        </View>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={addMonth}
+        >
+          <Image source={nextMonth} />
+        </TouchableOpacity>
+      </LinearGradient>
       {loadSale ? (
         <Lottie
           source={Loading}
@@ -144,28 +189,34 @@ const Sales: React.FC = () => {
           refreshing={loadFlatList}
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
-            <BoxDaySale key={item}>
-              <TextDateSale>{new Date().getDate() === Number(item) ? 'Hoje' : `${item}/${month}`}</TextDateSale>
+            <View style={styles.boxSale} key={item}>
+              <Text style={styles.textDateSale}>{new Date().getDate() === Number(item) ? 'Hoje' : `${item}/${month}`}</Text>
               {sales[item].map((s: Sale) => (
-                <ButtonSale
+                <TouchableOpacity
                   key={s.id}
+                  style={styles.buttonSale}
                   activeOpacity={0.7}
                   onPress={() => showModalSale(s.id)}
                 >
-                  <BoxSale colors={[colors.primaryColor, colors.secondaryColor]}>
-                    <TextSale>{s.nameCliente}</TextSale>
-                    <TextSale>{`R$ ${s?.saleTotal.toFixed(2)}`}</TextSale>
-                    <TextSale>{s.confirmPay ? 'Pago' : 'Agendado'}</TextSale>
-                  </BoxSale>
-                </ButtonSale>
+                  <View style={styles.shadow}>
+                    <LinearGradient
+                      colors={[colors.menuColor, colors.menuColor]}
+                      style={styles.sale}
+                    >
+                      <Text style={styles.textSales}>{s.nameCliente}</Text>
+                      <Text style={styles.textSales}>{`R$ ${s?.saleTotal.toFixed(2)}`}</Text>
+                      <Text style={styles.textSales}>{s.confirmPay ? 'Pago' : 'Agendado'}</Text>
+                    </LinearGradient>
+                  </View>
+                </TouchableOpacity>
 
               ))}
-            </BoxDaySale>
+            </View>
           )}
         />
       )}
 
-    </Container>
+    </LinearGradient>
   );
 };
 

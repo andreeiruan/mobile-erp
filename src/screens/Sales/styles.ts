@@ -1,92 +1,95 @@
-import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet } from 'react-native';
-import styled from 'styled-components/native';
 import { colors } from '../../styles.global';
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    height: '25%',
+  },
+  boxInfoSales: {
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: '15%',
+    alignSelf: 'center',
+    width: '95%',
+    height: 170,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    shadowColor: colors.menuColor,
+    shadowOpacity: 20,
+    shadowOffset: { width: 3, height: 5 },
+  },
+  boxInfo: {
+    marginTop: -20,
+    width: '80%',
+  },
+  titleInfo: {
+    fontSize: 22,
+    alignSelf: 'center',
+    color: colors.highlightedFontColor,
+    fontWeight: '700',
+  },
+  textInfo: {
+    fontSize: 20,
+    alignSelf: 'center',
+    marginTop: 5,
+    color: colors.highlightedFontColor,
+    fontWeight: '500',
+  },
   flatListSales: {
-    marginTop: 20,
+    marginTop: '22%',
+  },
+  boxSale: {
+    marginTop: 30,
+    width: '90%',
+    alignSelf: 'center',
+  },
+  textDateSale: {
+    fontSize: 22,
+    color: colors.primaryFontColor,
+    fontWeight: '700',
+  },
+  buttonSale: {
+    height: 45,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  shadow: {
+    shadowOffset: { width: 0, height: 1 },
+    elevation: 3,
+    shadowColor: '#222',
+    shadowOpacity: 1,
+  },
+  sale: {
+    height: '100%',
+    width: '100%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderRadius: 5,
+    padding: 5,
+  },
+  textSales: {
+    fontSize: 18,
+    color: colors.primaryFontColor,
+    fontWeight: '700',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    alignSelf: 'center',
+  },
+  text: {
+    fontSize: 16,
+    marginRight: 10,
+    color: colors.highlightedFontColor,
   },
 });
-
-export const Container = styled.SafeAreaView`
-  flex: 1;
-`;
-
-export const BoxInfoSales = styled(LinearGradient)`
-  margin-top: 7%;
-  width: 95%;
-  align-self: center;
-  justify-content: center;
-  padding: 25px;
-  border-radius: 18px;
-`;
-
-export const TextTitleSales = styled.Text`
-  font-size: 22px;
-  align-self: center;
-  color: ${colors.textPrimaryColors};
-`;
-
-export const TextAmountSales = styled.Text`
-  font-size: 35px;
-  align-self: center;
-  color: ${colors.textPrimaryColors};
-`;
-
-export const BoxSelectMonth = styled.View`
-  flex-direction: row;
-  width: 60%;
-  justify-content: space-between;
-  align-items: center;
-  align-self: center;
-  margin: 5px 0;
-`;
-
-export const ButtonMonth = styled.TouchableOpacity``;
-
-export const ButtonPN = styled.TouchableOpacity``;
-
-export const TextButton = styled.Text`
-  font-size: 20px;
-  color: ${colors.textPrimaryColors};
-`;
-
-export const ScrollSale = styled.ScrollView`
-  margin-top: 25px;
-  background: #F0F0F0;
-  margin: 0;
-`;
-
-export const BoxDaySale = styled.View`
-  margin-top: 10px;
-`;
-
-export const TextDateSale = styled.Text`
-  color: ${colors.primaryColor};
-  font-size: 25px;
-  margin-left: 5%;
-`;
-
-export const BoxSale = styled(LinearGradient)`
-  height: 100%;
-  width: 90%;
-  align-self: center;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 3px 15px;
-  border-radius: 5px;
-`;
-
-export const ButtonSale = styled.TouchableOpacity`
-  height: 45px;
-  margin-top: 10px;
-`;
-
-export const TextSale = styled.Text`
-  color: ${colors.textPrimaryColors};
-  font-size: 18px;
-`;
 
 export { styles };

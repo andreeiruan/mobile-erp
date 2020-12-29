@@ -5,24 +5,24 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Sales from '../screens/Sales';
 import Stock from '../screens/Stock';
 import Sell from '../screens/Sell';
-import Shopping from '../screens/Shopping';
 import Settings from '../screens/Settings';
-
 import IconsTabs from '../components/IconsTabs';
 
 import SalePng from '../assets/sale.png';
 import SellPng from '../assets/sell.png';
 import StockPng from '../assets/stock.png';
-import ShoppingPng from '../assets/shopping.png';
 import SettingsPng from '../assets/settings.png';
+
 import SaleActivePng from '../assets/saleActive.png';
 import SellActivePng from '../assets/sellActive.png';
 import StockActivePng from '../assets/stockActive.png';
-import ShoppingActivePng from '../assets/shoppingActive.png';
 import SettingsActivePng from '../assets/settingsActive.png';
+
 import { colors } from '../styles.global';
+
 import ShoppingCart from '../screens/ShoppingCart';
 import { CartProvider } from '../contexts/CartContext';
+import RegisterStock from '../screens/RegisterStock';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,8 +30,9 @@ const Stack = createStackNavigator();
 
 const screenOptionsStack: StackNavigationOptions = {
   headerStyle: {
-    height: 50,
-    backgroundColor: colors.primaryColor,
+    height: 45,
+    backgroundColor: colors.primaryColorLinear[0],
+    borderWidth: 0,
   },
   headerTitleAlign: 'center',
   headerBackTitleVisible: false,
@@ -43,16 +44,17 @@ const screenOptionsStack: StackNavigationOptions = {
 
 const StackStock: React.FC = () => (
   <Stack.Navigator
-    headerMode="float"
+    headerMode="none"
     screenOptions={screenOptionsStack}
   >
-    <Stack.Screen name="stock" component={Stock} options={{ title: 'Estoque' }} />
+    <Stack.Screen name="Stock" component={Stock} options={{ title: 'Estoque' }} />
+    <Stack.Screen name="RegisterStock" component={RegisterStock} options={{ title: 'Registrar estoque' }} />
   </Stack.Navigator>
 );
 
 const StackSale: React.FC = () => (
   <Stack.Navigator
-    headerMode="float"
+    headerMode="none"
     screenOptions={screenOptionsStack}
   >
     <Stack.Screen name="Sale" component={Sales} options={{ title: 'Vendas' }} />
@@ -62,7 +64,7 @@ const StackSale: React.FC = () => (
 const StackSell: React.FC = () => (
   <CartProvider>
     <Stack.Navigator
-      headerMode="float"
+      headerMode="none"
       screenOptions={screenOptionsStack}
     >
       <Stack.Screen name="Sell" component={Sell} options={{ title: 'Vender' }} />
@@ -74,15 +76,15 @@ const StackSell: React.FC = () => (
 const PrivateRoutes: React.FC = () => (
   <Tab.Navigator
     tabBarOptions={{
-      activeBackgroundColor: colors.backgroundColor,
-      inactiveBackgroundColor: colors.backgroundColor,
-      activeTintColor: colors.primaryColor,
-      inactiveTintColor: colors.borderColors,
+      activeBackgroundColor: colors.menuColor,
+      inactiveBackgroundColor: colors.menuColor,
+      activeTintColor: colors.menuActiveFontColor,
+      inactiveTintColor: '#000',
       labelStyle: { fontSize: 13, marginBottom: 5, fontWeight: '600' },
       style: {
         height: 55,
-        borderTopWidth: 1,
-        borderColor: colors.primaryColor,
+        borderTopWidth: 5,
+        borderTopColor: colors.menuColor,
       },
       iconStyle: {
         marginTop: 10,
@@ -98,17 +100,6 @@ const PrivateRoutes: React.FC = () => (
           focused ? (<IconsTabs image={SaleActivePng} />) : (<IconsTabs image={SalePng} />)
         ),
       })}
-
-    />
-    <Tab.Screen
-      name="Stock"
-      component={StackStock}
-      options={() => ({
-        title: 'Estoque',
-        tabBarIcon: ({ focused }) => (
-          focused ? (<IconsTabs image={StockActivePng} />) : (<IconsTabs image={StockPng} />)
-        ),
-      })}
     />
     <Tab.Screen
       name="Sell"
@@ -120,7 +111,19 @@ const PrivateRoutes: React.FC = () => (
         ),
       })}
     />
+
     <Tab.Screen
+      name="Stock"
+      component={StackStock}
+      options={() => ({
+        title: 'Estoque',
+        tabBarIcon: ({ focused }) => (
+          focused ? (<IconsTabs image={StockActivePng} />) : (<IconsTabs image={StockPng} />)
+        ),
+      })}
+    />
+
+    {/* <Tab.Screen
       name="Shopping"
       component={Shopping}
       options={() => ({
@@ -129,7 +132,7 @@ const PrivateRoutes: React.FC = () => (
           focused ? (<IconsTabs image={ShoppingActivePng} />) : (<IconsTabs image={ShoppingPng} />)
         ),
       })}
-    />
+    /> */}
     <Tab.Screen
       name="Settings"
       component={Settings}

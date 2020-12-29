@@ -78,7 +78,7 @@ const Sales: React.FC = () => {
     setLoadFlatList(true);
     const { data } = await api.get('/sales', {
       params: {
-        month: 12,
+        month,
       },
     });
 
@@ -95,7 +95,7 @@ const Sales: React.FC = () => {
     setLoadSale(true);
     const { data } = await api.get('/sales', {
       params: {
-        month: 12,
+        month,
       },
     });
 

@@ -58,7 +58,7 @@ const StackSale: React.FC = () => (
     headerMode="none"
     screenOptions={screenOptionsStack}
   >
-    <Stack.Screen name="Sale" component={Sales} options={{ title: 'Vendas' }} />
+    <Stack.Screen name="Sales" component={Sales} options={{ title: 'Vendas' }} />
   </Stack.Navigator>
 );
 

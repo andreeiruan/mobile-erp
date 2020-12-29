@@ -20,7 +20,7 @@ import { colors } from '../../styles.global';
 
 type RootStackParamList = {
   SignUp: undefined
-  Sale: undefined
+  Sales: undefined
 }
 
 interface Props{
@@ -63,7 +63,7 @@ const Login: React.FC<Props> = ({ navigation }: Props) => {
 
       setLoad(false);
       await signIn(data.token);
-      return navigation.navigate('Sale');
+      return navigation.navigate('Sales');
     } catch {
       setLoad(false);
       return setError('Houve um erro inesperado');

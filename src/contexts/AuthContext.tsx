@@ -25,6 +25,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   async function signIn(tokenParam: string): Promise<void> {
     await AsyncStorage.setItem('@erpamb:token', tokenParam);
+    await loadStorageData();
   }
 
   async function signOut(): Promise<void> {

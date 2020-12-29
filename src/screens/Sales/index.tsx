@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   FlatList, Image,
+  LogBox,
   Text, TouchableOpacity, View,
 } from 'react-native';
 import Lottie from 'lottie-react-native';
@@ -66,6 +67,7 @@ const Sales: React.FC = () => {
       setMonth(month + 1);
     }
   }
+
   function removeMonth() {
     if (month === 1) {
       setMonth(12);
@@ -92,6 +94,7 @@ const Sales: React.FC = () => {
   }
 
   async function getSales() {
+    LogBox.ignoreAllLogs();
     setLoadSale(true);
     const { data } = await api.get('/sales', {
       params: {
@@ -105,7 +108,7 @@ const Sales: React.FC = () => {
 
     setSaleAmount(data.amountSale);
 
-    setTimeout(() => setLoadSale(false), 1000);
+    setLoadSale(false);
   }
 
   async function getSale(id: string) {

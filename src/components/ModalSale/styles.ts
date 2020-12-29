@@ -1,68 +1,90 @@
-import { LinearGradient } from 'expo-linear-gradient';
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 import { colors } from '../../styles.global';
 
-export const ContainerModal = styled.Modal`
-  flex: 1;
-`;
+const styles = StyleSheet.create({
+  containerModal: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    width: '100%',
+  },
+  box: {
+    height: '90%',
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+    borderTopStartRadius: 25,
+    borderTopEndRadius: 25,
+  },
+  buttonClose: {
+    alignSelf: 'flex-end',
+    marginRight: 10,
+    marginTop: 10,
+  },
+  boxInfo: {
+    width: '100%',
+    borderRadius: 10,
+    marginTop: 0,
+    paddingBottom: 15,
+    shadowOffset: { width: 1, height: 1 },
+    elevation: 3,
+    shadowColor: '#333',
+    shadowOpacity: 2,
+  },
+  textNameClient: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: colors.primaryFontColor,
+    marginLeft: 25,
+    marginTop: 15,
+  },
+  boxInfoSale: {},
+  textInfo: {
+    fontSize: 18,
+    color: colors.primaryFontColor,
+    marginLeft: 25,
+    fontWeight: '500',
+  },
+  textPayment: {
+    fontSize: 18,
+    color: colors.primaryFontColor,
+    marginLeft: 25,
+    fontWeight: '500',
+  },
+  boxPartial: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  boxDate: {
+  },
+  payment: {
+    fontSize: 18,
+    color: colors.primaryFontColor,
+    marginLeft: 25,
+    fontWeight: '500',
+  },
+  date: {
+    fontSize: 18,
+    color: colors.primaryFontColor,
+    marginLeft: 25,
+    fontWeight: '500',
+  },
+  footer: {
+    width: '100%',
+    padding: 10,
+  },
+  textSaleTotal: {
+    fontWeight: '700',
+    fontSize: 22,
+    color: colors.highlightedFontColor,
+  },
+  textDiscount: {
+    fontWeight: '500',
+    fontSize: 18,
+    color: colors.highlightedFontColor,
+  },
+});
 
-export const Container = styled.View`
-  flex: 1;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
-export const Box = styled(LinearGradient)`
-  background: ${colors.backgroundColor};
-  height: 90%;
-  width: 100%;
-  box-shadow: 0px 2px 5px #000;
-  border-radius: 8px;
-  bottom: 0;
-`;
-
-export const ButtonClose = styled.TouchableOpacity`
-  align-self: flex-end;
-  margin-top: 5px;
-  margin-right: 5px;
-`;
-
-export const TextTitle = styled.Text`
-  font-size: 35px;
-  margin-left: 25px;
-`;
-
-export const BoxInfo = styled.View`
-  margin-top: 15px;
-`;
-
-export const ScrollProducts = styled.ScrollView`
-  margin-top: 15px;
-  max-height: 65%;
-`;
-
-export const BoxValueSale = styled.View`
-  font-size:  16px;
-  height: 10%;
-  width: 100%;
-  bottom: 0;
-  position: absolute;
-  border-top-width: 1px;
-  background: ${colors.backgroundColor};
-  box-shadow: 0 2px 5px ${colors.borderColors};
-`;
-
-export const TextDiscount = styled.Text`
-  font-size: 16px;
-  margin-left: 25px;
-`;
-
-export const TextValueSale = styled.Text`
-  font-size: 20px;
-  margin-top: 10px;
-  margin-left: 25px;
-`;
-export const TextInfo = styled.Text`
-  font-size: 18px;
-  margin: 5px 0 0 25px;
-`;
+export { styles };

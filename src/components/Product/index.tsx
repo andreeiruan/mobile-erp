@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 
 import api from '../../services/api';
 
-import {
-  BoxProduct, NameProduct, TextProduct, Row,
-} from './styles';
+import { styles } from './styles';
 
 interface Props{
   id: string,
@@ -40,14 +39,19 @@ const Product: React.FC<Props> = ({
     }
   }, []);
   return (
-    <BoxProduct>
-      <NameProduct>{product?.name}</NameProduct>
-      <Row>
-        <TextProduct>{`Quantidade: ${amount}`}</TextProduct>
-        <TextProduct>{`Valor unitário: R$ ${unitaryValue}`}</TextProduct>
-      </Row>
-      <TextProduct>{`Desconto por unidade: R$ ${discount.toFixed(2)}`}</TextProduct>
-    </BoxProduct>
+    <View style={styles.boxProduct}>
+
+      <Text style={styles.nameProduct}>{product?.name}</Text>
+
+      <Text style={styles.text}>{`Valor unitário: R$ ${unitaryValue.toFixed(2)}`}</Text>
+
+      <Text style={styles.text}>{`Desconto por unidade: R$ ${discount.toFixed(2)}`}</Text>
+
+      <View style={styles.row}>
+        <Text style={styles.text}>{`Quantidade: ${amount}`}</Text>
+        <Text style={styles.text}>{`Total: R$ ${Number(amount * (unitaryValue - discount)).toFixed(2)}`}</Text>
+      </View>
+    </View>
   );
 };
 

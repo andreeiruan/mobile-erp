@@ -1,28 +1,35 @@
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
+import { colors } from '../../styles.global';
 
-export const BoxProduct = styled.View`
-  padding: 10px 10px;
-  border-width: 1px;
-  border-radius: 5px;
-  margin: 5px 0 15px 0;
-  width: 90%;
-  align-self: center;
-`;
-export const NameProduct = styled.Text`
-  font-size: 16px;
-  margin: 5px 10px;
-`;
+const styles = StyleSheet.create({
+  boxProduct: {
+    width: '85%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    padding: 10,
+    shadowOffset: { width: 1, height: 1 },
+    elevation: 3,
+    shadowColor: '#333',
+    shadowOpacity: 2,
+    backgroundColor: colors.menuColor,
+    borderRadius: 5,
+  },
+  nameProduct: {
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 10,
+    color: colors.primaryFontColor,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: colors.primaryFontColor,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+});
 
-export const Row = styled.View`
-  flex-direction: row;
-  width: 100%;
-  border-top-width: 1px;
-  align-self: center;
-  justify-content: flex-start;
-
-`;
-
-export const TextProduct = styled.Text`
-  font-size: 14px;
-  margin: 5px 0 0 5px;
-`;
+export { styles };

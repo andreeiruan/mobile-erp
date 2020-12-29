@@ -3,9 +3,10 @@ import React, {
 } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import {
-  ContainerModal, Container, Box, ButtonClose, TextTitle, BoxInfo, TextValueSale,
-  BoxValueSale, ScrollProducts, TextDiscount, TextInfo,
-} from './styles';
+  Modal, ScrollView, Text, TouchableOpacity, View,
+} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { styles } from './styles';
 import Product from '../Product';
 import { treatDate } from '../../utils/treats';
 import { colors } from '../../styles.global';
@@ -32,7 +33,10 @@ interface Sale{
   nameCliente: string
   salesProducts: IProduct[]
   createdAt: string
-  updatedAt: string
+  updatedAt: string,
+  partialPayment: boolean
+  remainingAmount: number | null
+  amountPaid: number | null
 }
 
 interface Props{
@@ -56,25 +60,59 @@ const ModalSale: React.FC<Props> = ({ visible, setVisible, sale }: Props) => {
   }, [sale]);
 
   return (
-    <ContainerModal
+    <Modal
       animationType="slide"
       transparent
+      style={styles.containerModal}
       visible={visible}
     >
-      <Container>
-        <Box colors={[colors.backgroundColor, colors.backgroundColor]}>
-          <ButtonClose activeOpacity={0.7} onPress={() => setVisible(!visible)}>
-            <AntDesign name="closecircleo" size={35} color={colors.primaryColor} />
-          </ButtonClose>
-          <TextTitle>{sale?.nameCliente}</TextTitle>
-          <BoxInfo>
-            <TextInfo>{`Data da venda: ${treatDate(saleDate || '')}`}</TextInfo>
-            {sale?.confirmPay ? (
-              <TextInfo>{`Data do pagamento: ${treatDate(payDate || '')}`}</TextInfo>
-            ) : (<TextInfo>{`Pagamento agendado: ${treatDate(payDate || '')}`}</TextInfo>)}
-          </BoxInfo>
+      <LinearGradient
+        colors={colors.backgroundLinear}
+        style={styles.box}
+      >
 
-          <ScrollProducts>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => setVisible(!visible)}
+          style={styles.buttonClose}
+        >
+          <AntDesign name="closecircleo" size={30} color={colors.primaryFontColor} />
+        </TouchableOpacity>
+
+        <View style={styles.container}>
+          <View
+            style={styles.boxInfo}
+          >
+            <Text style={styles.textNameClient}>{sale?.nameCliente}</Text>
+            <View style={styles.boxInfoSale}>
+              <Text style={styles.textInfo}>{`Data da venda: ${treatDate(saleDate || '')}`}</Text>
+              <Text style={styles.textPayment}>
+                {`Pagamento: ${sale?.partialPayment ? 'Parcial' : sale?.confirmPay ? 'Pago' : 'Agendado'}`}
+              </Text>
+
+              {sale?.partialPayment ? (
+                <View style={styles.boxPartial}>
+                  <View style={styles.boxDate}>
+                    <Text style={styles.payment}>{`Pago: R$ ${sale.amountPaid?.toFixed(2)}`}</Text>
+                    <Text style={styles.date}>{`Data: ${treatDate(saleDate || '')}`}</Text>
+                  </View>
+                  <View style={styles.boxDate}>
+                    <Text style={styles.payment}>{`Falta: R$ ${sale.remainingAmount?.toFixed(2)}`}</Text>
+                    <Text style={styles.date}>{`Data: ${treatDate(payDate || '')}`}</Text>
+                  </View>
+                </View>
+              ) : (
+                <>
+                  {sale?.confirmPay
+                    ? (<Text style={styles.payment}>{`Data do Pagamento: ${treatDate(payDate || '')}`}</Text>)
+                    : (<Text>{`Agendado para: ${treatDate(payDate || '')}`}</Text>)}
+                </>
+              )}
+
+            </View>
+
+          </View>
+          <ScrollView style={{ width: '100%' }}>
             {sale ? (
               <>
                 {sale.salesProducts.map((product) => (
@@ -88,16 +126,15 @@ const ModalSale: React.FC<Props> = ({ visible, setVisible, sale }: Props) => {
                 ))}
               </>
             ) : <></>}
-          </ScrollProducts>
+          </ScrollView>
 
-          <BoxValueSale>
-            <TextValueSale>{`R$ ${sale?.saleTotal.toFixed(2)}`}</TextValueSale>
-            <TextDiscount>{`Total descontos: R$ ${sale?.discount.toFixed(2)}`}</TextDiscount>
-          </BoxValueSale>
-        </Box>
-      </Container>
-
-    </ContainerModal>
+          <LinearGradient colors={colors.primaryColorLinear} style={styles.footer}>
+            <Text style={styles.textSaleTotal}>{`R$ ${sale?.saleTotal.toFixed(2)}`}</Text>
+            <Text style={styles.textDiscount}>{`Descontos: R$ ${sale?.discount.toFixed(2)}`}</Text>
+          </LinearGradient>
+        </View>
+      </LinearGradient>
+    </Modal>
   );
 };
 

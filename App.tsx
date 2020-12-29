@@ -12,8 +12,7 @@ export default function App() {
         <Router />
         <StatusBar
           translucent
-          backgroundColor="#000"
-          barStyle="dark-content"
+          barStyle="light-content"
         />
       </AuthProvider>
     </NavigationContainer>

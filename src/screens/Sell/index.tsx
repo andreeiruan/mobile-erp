@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import {
-  SafeAreaView, TouchableOpacity, TextInput, ScrollView, View, Text, FlatList,
+  TouchableOpacity, TextInput, View, Text, FlatList,
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 
 import { StackNavigationProp } from '@react-navigation/stack';
+import { LinearGradient } from 'expo-linear-gradient';
+
 import { styles } from './styles';
+import { colors } from '../../styles.global';
+
 import api from '../../services/api';
-import ModalAddProductCart from '../../components/ModalAddProductCart';
 import { useCart } from '../../hooks/useCart';
+
+import ModalAddProductCart from '../../components/ModalAddProductCart';
 
 interface Product{
   id: string
@@ -30,7 +35,8 @@ interface Props{
 }
 
 const Sell: React.FC<Props> = ({ navigation }: Props) => {
-  const [products, setProducts] = useState<Product[]>();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [searchProducts, setSearchProducts] = useState<Product[]>([]);
   const [name, setName] = useState<string>('');
   const [modalProduct, setModalProduct] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -42,6 +48,7 @@ const Sell: React.FC<Props> = ({ navigation }: Props) => {
     const { data } = await api.get('/products', { params: { name } });
 
     setProducts(data);
+    setSearchProducts(data);
   }
 
   async function refreshProducts() {
@@ -59,28 +66,35 @@ const Sell: React.FC<Props> = ({ navigation }: Props) => {
     setModalProduct(true);
   }
 
-  // function filterProductsByName() {
-  //   let listProducts = products;
-  //   listProducts = listProducts?.filter((p) => p.name.indexOf(name));
-  //   setProducts(listProducts);
-  // }
+  useEffect(() => {
+    const ids = cart.map((p) => p.id);
+    if (name) {
+      const listProducts = products
+        .filter((p) => p.name.toLowerCase().includes(name.toLowerCase()))
+        .filter((p) => !ids.includes(p.id));
 
-  // useEffect(() => {
-  //   filterProductsByName();
-  // }, [name]);
+      setSearchProducts(listProducts);
+    } else {
+      setSearchProducts(products);
+    }
+  }, [name]);
 
   useEffect(() => {
     getProducts();
-  }, [name]);
+  }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <LinearGradient
+      style={styles.container}
+      colors={colors.backgroundLinear}
+    >
       <ModalAddProductCart
         visible={modalProduct}
         setVisible={setModalProduct}
         product={productSelect}
         addCart={addCart}
       />
+      <Text style={styles.labelSearch}>Pesquisa</Text>
       <TextInput
         placeholder="Pesquisa ..."
         style={styles.inputSearch}
@@ -90,24 +104,31 @@ const Sell: React.FC<Props> = ({ navigation }: Props) => {
       <FlatList
         style={styles.scrollProducts}
         key="list"
-        data={products}
+        data={searchProducts}
         onRefresh={refreshProducts}
         refreshing={refreshing}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity
+          <View
             style={styles.boxProduct}
-            key={item.id}
-            onPress={() => showModalAddProductCart(item)}
           >
-            <Text style={styles.textValue}>{item.amount}</Text>
-            <Text style={styles.textName}>{item.name}</Text>
-            <Text style={styles.textValue}>{`R$ ${item.saleValue}`}</Text>
-          </TouchableOpacity>
+            <View style={styles.boxTextProduct}>
+              <Text style={styles.textValue}>{item.amount}</Text>
+              <Text style={styles.textName}>{item.name}</Text>
+            </View>
+            {/* <Text style={styles.textValue}>{`R$ ${item.saleValue}`}</Text> */}
+            <TouchableOpacity
+              key={item.id}
+              onPress={() => showModalAddProductCart(item)}
+            >
+              {/* <Image source={buttonAddCart} /> */}
+              <FontAwesome5 name="cart-plus" size={24} color={colors.primaryFontColor} />
+            </TouchableOpacity>
+          </View>
         )}
       />
 
-      <View style={styles.footer}>
+      <LinearGradient colors={colors.secondaryColorLinear} style={styles.footer}>
         <View style={styles.boxPriceText}>
           <Text style={styles.money}>R$</Text>
           <Text style={styles.priceCart}>{amountCart.toFixed(2)}</Text>
@@ -119,12 +140,12 @@ const Sell: React.FC<Props> = ({ navigation }: Props) => {
           onPress={() => navigation.navigate('ShoppingCart')}
         >
           <>
-            <AntDesign name="shoppingcart" size={35} color="#fff" />
+            <AntDesign name="shoppingcart" size={35} color={colors.secondaryFontColor} />
             <Text style={styles.numberItemsCart}>{cart.length}</Text>
           </>
         </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+      </LinearGradient>
+    </LinearGradient>
   );
 };
 

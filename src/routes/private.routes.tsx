@@ -23,6 +23,7 @@ import { colors } from '../styles.global';
 import ShoppingCart from '../screens/ShoppingCart';
 import { CartProvider } from '../contexts/CartContext';
 import RegisterStock from '../screens/RegisterStock';
+import FinalizeSale from '../screens/FinalizeSale';
 
 const Tab = createBottomTabNavigator();
 
@@ -69,6 +70,7 @@ const StackSell: React.FC = () => (
     >
       <Stack.Screen name="Sell" component={Sell} options={{ title: 'Vender' }} />
       <Stack.Screen name="ShoppingCart" component={ShoppingCart} options={{ title: 'Carrinho' }} />
+      <Stack.Screen name="FinalizeSale" component={FinalizeSale} options={{ title: 'Finalizar venda' }} />
     </Stack.Navigator>
   </CartProvider>
 );

@@ -5,59 +5,53 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  scroll: {
+    marginTop: '18%',
+    width: '100%',
+  },
+  boxInput: {
+    marginTop: 20,
+    width: '80%',
+    alignSelf: 'center',
+  },
+  buttonSelect: {
+    width: '80%',
+  },
+  textSelect: {
+    fontSize: 18,
+    color: colors.primaryFontColor,
+  },
+  label: {
+    fontSize: 22,
+    color: colors.primaryFontColor,
+    fontWeight: 'bold',
+  },
+  input: {
+    padding: 5,
+    borderRadius: 5,
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 5,
+    backgroundColor: colors.inputBackgroundColor,
+    color: colors.secondaryFontColor,
+    shadowColor: '#000',
+    shadowOpacity: 20,
+    shadowOffset: { width: 3, height: 2 },
+    elevation: 3,
+  },
   shadow: {
     shadowColor: '#000',
     shadowOpacity: 20,
     shadowOffset: { width: 3, height: 2 },
     elevation: 3,
   },
-  listProducts: {
-    marginTop: '40%',
-  },
-  boxProduct: {
-    marginVertical: 5,
-    width: '80%',
-    paddingHorizontal: 10,
-    paddingVertical: 15,
-    alignSelf: 'center',
-    borderRadius: 5,
-    shadowColor: '#000',
-    shadowOpacity: 20,
-    shadowOffset: { width: 1, height: 1 },
-    elevation: 3,
-    backgroundColor: colors.menuColor,
-    marginTop: 15,
+  datePicker: {
+    marginTop: 10,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-  },
-  nameProduct: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: colors.primaryFontColor,
-  },
-  amount: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: colors.primaryFontColor,
-  },
-  discount: {
-    fontSize: 16,
-    color: colors.errorFontColor,
-    fontWeight: 'bold',
-  },
-  unitaryValue: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: colors.primaryFontColor,
-  },
-  amountValue: {
-    fontSize: 18,
-    alignSelf: 'flex-end',
-    fontWeight: 'bold',
-    color: colors.primaryFontColor,
   },
   footer: {
     flexDirection: 'row',
@@ -83,7 +77,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: '10%',
     padding: 10,
-    marginBottom: 30,
     // backgroundColor: colors.primaryFontColor,
     borderRadius: 8,
   },
@@ -92,6 +85,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     alignSelf: 'center',
+  },
+  textError: {
+    fontSize: 18,
+    alignSelf: 'center',
+    marginBottom: 15,
+    marginTop: 5,
+    color: colors.errorFontColor,
+    height: 20,
   },
 });
 

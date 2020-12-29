@@ -5,12 +5,13 @@ const colors = {
   secondaryColorLinear: ['#E0E0E0', '#F8F3F3', '#E0E0E0', '#E2E2E2'],
 
   inputBackgroundColor: '#FFF',
-  primaryColor: '#7e61e4',
+  primaryColor: '#33A4EF',
   secondaryColor: '#347497',
 
   primaryFontColor: '#b9b9be',
-  secondaryFontColor: '#1F1E1E',
+  secondaryFontColor: '#393948',
   highlightedFontColor: '#FEFEFE',
+  errorFontColor: '#C81C1C',
 
   menuColor: '#393948',
   menuActiveFontColor: '#0676C0',

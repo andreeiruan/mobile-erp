@@ -1,128 +1,76 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  View, Text, SafeAreaView, TextInput, Platform, ScrollView, TouchableOpacity,
+  View, Text, ScrollView, TouchableOpacity,
 } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import { styles } from './styles';
-import api from '../../services/api';
 import { useCart } from '../../hooks/useCart';
+import { colors } from '../../styles.global';
 
 type RootStackParamList = {
-  Sell: undefined
+  Sell: undefined,
+  FinalizeSale: undefined
 }
 
 interface Props{
   navigation: StackNavigationProp<RootStackParamList, 'Sell'>
 }
 const ShoppingCart: React.FC<Props> = ({ navigation }) => {
-  const [showDatePicker, setShowDatePicker] = useState<boolean>(true);
-  const [date, setDate] = useState<Date>(new Date());
-  const [nameClient, setNameClient] = useState<string>();
-  const [load, setLoad] = useState<boolean>(false);
-  const [error, setError] = useState<string>();
-
   const {
-    cart, removeCart, amountCart, clearCart,
+    cart, removeCart, amountCart,
   } = useCart();
 
-  function onChangeDate(event: Event, selectedDate: Date): void {
-    const currentDate = selectedDate || date;
-    setShowDatePicker(Platform.OS === 'ios');
-    setDate(currentDate);
-  }
-
-  async function handleSubmit() {
-    if (!nameClient) {
-      setError('Diga o nome do cliente');
-      return;
-    }
-    setLoad(true);
-    try {
-      const { status } = await api.post('/sales', {
-        payDate: date.toISOString(),
-        nameCliente: nameClient,
-        confirmPay: date.getDate() === new Date().getDate()
-        && date.getMonth() === new Date().getMonth(),
-        products: cart,
-      });
-
-      if (status !== 201) {
-        setLoad(false);
-        setError('Houve um erro inesperado');
-        return;
-      }
-
-      clearCart();
-      setLoad(false);
-      navigation.navigate('Sell');
-    } catch {
-      setLoad(false);
-      setError('Houve um erro inesperado');
-    }
-  }
-
   return (
-    <SafeAreaView style={styles.container}>
-      <TextInput
-        placeholder="Nome do cliente ..."
-        style={styles.inputNameCliente}
-        autoCompleteType="off"
-        autoCapitalize="words"
-        value={nameClient}
-        onChangeText={setNameClient}
-      />
+    <LinearGradient
+      colors={colors.backgroundLinear}
+      style={styles.container}
+    >
 
-      <View style={styles.boxDate}>
-        <Text style={styles.labelDate}>Data do pagamento</Text>
-
-        {showDatePicker && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          is24Hour
-          mode="date"
-          minimumDate={new Date()}
-          locale="pt-BR"
-          // @ts-ignore
-          onChange={onChangeDate}
-          style={styles.datePicker}
-        />
-        )}
-      </View>
-      <ScrollView style={styles.scrollProducts}>
-        {cart.map((p) => (
-          <View style={styles.boxProduct} key={p.id}>
-            <View style={styles.row}>
-              <Text style={styles.nameProduct}>{p.name}</Text>
-              <Text style={styles.unitaryValue}>{`R$ ${p.unitaryValue.toFixed(2)}`}</Text>
-            </View>
-            <View style={styles.row}>
-              <Text style={styles.amount}>{p.amount}</Text>
-              <Text style={styles.discount}>{`R$ - ${p.unitaryDiscount.toFixed(2)}`}</Text>
-            </View>
-            <Text style={styles.amountValue}>{`R$ ${p.amountTotal.toFixed(2)}`}</Text>
-            <Ionicons onPress={() => removeCart(p.id)} name="trash-sharp" size={24} color="black" />
-          </View>
-        ))}
-      </ScrollView>
-      <TouchableOpacity
-        style={styles.buttonSale}
-        activeOpacity={0.7}
-        onPress={handleSubmit}
-        disabled={load}
-      >
+      <ScrollView style={styles.listProducts}>
         <>
-          <View style={styles.boxPriceText}>
-            <Text style={styles.money}>R$</Text>
-            <Text style={styles.priceCart}>{amountCart.toFixed(2)}</Text>
-          </View>
-          <Text style={styles.textButtonSale}>Finalizar Venda</Text>
+          {cart.map((p) => (
+            <View key={p.id} style={styles.shadow}>
+              <View
+                style={styles.boxProduct}
+              >
+                <View style={styles.row}>
+                  <Text style={styles.nameProduct}>{p.name}</Text>
+                  <Text style={styles.unitaryValue}>{`R$ ${p.unitaryValue.toFixed(2)}`}</Text>
+                </View>
+                <View style={styles.row}>
+                  <Text style={styles.amount}>{`Quantidade: ${p.amount}`}</Text>
+                  <Text style={styles.discount}>{`R$ - ${Number(p.unitaryDiscount).toFixed(2)}`}</Text>
+                </View>
+                <View style={styles.row}>
+                  <Ionicons onPress={() => removeCart(p.id)} name="trash-sharp" size={24} color={colors.primaryFontColor} />
+                  <Text style={styles.amountValue}>{`R$ ${p.amountTotal.toFixed(2)}`}</Text>
+                </View>
+              </View>
+            </View>
+          ))}
         </>
-      </TouchableOpacity>
-      <Text style={styles.textError}>{error}</Text>
-    </SafeAreaView>
+      </ScrollView>
+
+      <LinearGradient
+        colors={colors.secondaryColorLinear}
+        style={styles.buttonSale}
+      >
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('FinalizeSale')}
+        >
+          <>
+            <View style={styles.boxPriceText}>
+              <Text style={styles.money}>R$</Text>
+              <Text style={styles.priceCart}>{amountCart.toFixed(2)}</Text>
+            </View>
+            <Text style={styles.textButtonSale}>Fechar Carrinho</Text>
+          </>
+        </TouchableOpacity>
+      </LinearGradient>
+    </LinearGradient>
   );
 };
 

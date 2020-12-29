@@ -34,7 +34,6 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   async function isAuthenticated() {
-    await SplashScreen.preventAutoHideAsync();
     await loadStorageData();
     if (!token) {
       setAuthenticated(false);

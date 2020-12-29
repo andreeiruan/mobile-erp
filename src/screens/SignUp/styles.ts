@@ -1,55 +1,52 @@
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
+import { colors } from '../../styles.global';
 
-export const Container = styled.SafeAreaView`
-  flex: 1;
-  align-items: center;
-  justify-content: flex-end;
-  background: #F0F0F0;
-  margin-bottom: 25%;
-`;
-
-export const Logo = styled.Image`
-`;
-
-export const TextTitle = styled.TextInput`
-  font-size: 25px;
-  text-align: center;
-  margin-top: 5%;
-`;
-
-export const TextError = styled.TextInput`
-  font-size: 16px;
-  text-align: center;
-  margin-top: 2%;
-  color: red;
-`;
-
-export const BoxForm = styled.View`
-  width: 100%;
-  align-items: center;
-  margin: 0;
-  margin-bottom: 10%;
-`;
-
-export const BoxInput = styled.View`
-  border-bottom-width: 1px;
-  border-color: #2ab5d1;
-  width: 80%;
-  flex-direction: row;
-  height: 45px;
-  align-items: center;
-  margin-top: 20px;
-`;
-
-export const IconInput = styled.Image`
-  margin-top: 5px;
-`;
-
-export const Input = styled.TextInput`
-  margin-top: 10px;
-  margin-left: 15px;
-  font-size: 18px;
-  height: 100%;
-  width: 100%;
-  color: #207D78;
-`;
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo: {},
+  textTitle: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginTop: 20,
+  },
+  boxForm: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: '10%',
+  },
+  boxInput: {
+    backgroundColor: colors.inputBackgroundColor,
+    width: '80%',
+    borderRadius: 5,
+    marginTop: 20,
+    height: 45,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    shadowColor: '#111',
+    shadowOpacity: 20,
+    shadowOffset: { width: 3, height: 5 },
+    elevation: 3,
+  },
+  iconInput: {
+    marginTop: 5,
+  },
+  input: {
+    marginTop: 10,
+    marginLeft: 15,
+    fontSize: 18,
+    height: '100%',
+    width: '100%',
+    color: colors.secondaryFontColor,
+  },
+  textError: {
+    fontSize: 18,
+    color: colors.errorFontColor,
+    fontWeight: 'bold',
+    marginTop: 15,
+  },
+});

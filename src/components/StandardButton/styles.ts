@@ -1,12 +1,15 @@
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
+import { colors } from '../../styles.global';
 
-export const Button = styled.TouchableOpacity`
-  width: 100%;
-  justifyContent: center;
-  alignItems: center;
-`;
-
-export const Label = styled.Text`
-  color: #fff;
-  font-size: 25px;
-`;
+export const styles = StyleSheet.create({
+  button: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  label: {
+    color: colors.highlightedFontColor,
+    fontWeight: 'bold',
+    fontSize: 25,
+  },
+});

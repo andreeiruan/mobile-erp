@@ -1,73 +1,66 @@
-import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
+import { colors } from '../../styles.global';
 
-export const Container = styled.SafeAreaView`
-  flex: 1;
-  align-items: center;
-  justify-content: flex-end;
-  background: #F0F0F0;
-  margin-bottom: 10%;
-`;
-
-export const Logo = styled.Image`
-`;
-
-export const TextTitle = styled.TextInput`
-  font-size: 25px;
-  text-align: center;
-  margin-top: 5%;
-`;
-
-export const TextError = styled.TextInput`
-  font-size: 16px;
-  text-align: center;
-  margin-top: 2%;
-  color: red;
-`;
-
-export const BoxForm = styled.View`
-  width: 100%;
-  align-items: center;
-  margin: 0;
-  margin-bottom: 10%;
-`;
-
-export const BoxInput = styled.View`
-  border-bottom-width: 1px;
-  border-color: #2ab5d1;
-  width: 80%;
-  flex-direction: row;
-  height: 45px;
-  align-items: center;
-  margin-top: 20px;
-`;
-
-export const IconInput = styled.Image`
-  margin-top: 5px;
-`;
-
-export const Input = styled.TextInput`
-  margin-top: 10px;
-  margin-left: 15px;
-  font-size: 18px;
-  height: 100%;
-  width: 100%;
-  color: #207D78;
-`;
-
-export const ButtonForgotPassword = styled.TouchableOpacity``;
-
-export const TextForgotPassword = styled.Text`
-  font-size: 16px;
-  color: #2ab5d1;
-  text-align: center;
-  margin-top: 5px;
-`;
-
-export const ButtonSignUp = styled.TouchableOpacity``;
-
-export const TextSignUp = styled.Text`
-  font-size: 16px;
-  color: #2ab5d1;
-  text-align: center;
-  margin-top: 20%;
-`;
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo: {},
+  textTitle: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginTop: 15,
+  },
+  boxForm: {
+    width: '100%',
+    alignItems: 'center',
+    margin: 0,
+    marginBottom: '10%',
+  },
+  boxInput: {
+    width: '80%',
+    flexDirection: 'row',
+    height: 45,
+    alignItems: 'center',
+    marginTop: 20,
+    backgroundColor: colors.inputBackgroundColor,
+    borderRadius: 5,
+    paddingHorizontal: 15,
+    shadowColor: '#111',
+    shadowOpacity: 20,
+    shadowOffset: { width: 3, height: 5 },
+    elevation: 3,
+  },
+  iconInput: {
+    marginTop: 5,
+  },
+  input: {
+    marginTop: 10,
+    marginLeft: 15,
+    fontSize: 18,
+    height: '100%',
+    width: '100%',
+    color: colors.secondaryFontColor,
+  },
+  textForgotPassword: {
+    fontSize: 16,
+    color: colors.primaryFontColor,
+    textAlign: 'center',
+    marginTop: 5,
+  },
+  textSignUp: {
+    fontSize: 16,
+    color: colors.primaryFontColor,
+    textAlign: 'center',
+    marginTop: '20%',
+  },
+  textError: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginTop: '2%',
+    color: colors.errorFontColor,
+  }
+  ,
+});

@@ -1,10 +1,12 @@
 import React from 'react';
+import { TouchableOpacity, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Lottie from 'lottie-react-native';
 
-import { Button, Label } from './styles'; // eslint-disable-line
+import {styles } from './styles'; // eslint-disable-line
 
 import LoadButton from '../../animations/loadButton.json';
+import { colors } from '../../styles.global';
 
 export interface Props{
   label: string
@@ -13,9 +15,14 @@ export interface Props{
 }
 
 const StandardButton: React.FC<Props> = ({ onPress, label, load }: Props) => (
-  <Button activeOpacity={0.7} onPress={onPress} disabled={load}>
+  <TouchableOpacity
+    style={styles.button}
+    activeOpacity={0.7}
+    onPress={onPress}
+    disabled={load}
+  >
     <LinearGradient
-      colors={['#2AB5D1', '#00C7C7']}
+      colors={colors.primaryColorLinear}
       style={{
         width: '85%',
         height: 40,
@@ -32,10 +39,10 @@ const StandardButton: React.FC<Props> = ({ onPress, label, load }: Props) => (
           resizeMode="contain"
           style={{ height: 150 }}
         />
-      ) : <Label>{label}</Label> }
+      ) : <Text style={styles.label}>{label}</Text> }
 
     </LinearGradient>
-  </Button>
+  </TouchableOpacity>
 );
 
 export default StandardButton;

@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
 import {
-  Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback,
+  Image,
+  Keyboard, KeyboardAvoidingView, Platform, TextInput, TouchableWithoutFeedback, View,
 } from 'react-native';
 
 import { StackNavigationProp } from '@react-navigation/stack';
+import { LinearGradient } from 'expo-linear-gradient';
+import { FontAwesome, Entypo } from '@expo/vector-icons';
+
 import api from '../../services/api';
 
-import {
-  BoxForm, Container, Logo, TextTitle, BoxInput, IconInput, Input,
-  TextError,
-} from './styles';
+import { styles } from './styles';
 
 import LogoPng from '../../assets/logo.png';
-import AtPng from '../../assets/at.png';
-import PassPng from '../../assets/pass.png';
-import UserPng from '../../assets/user.png';
+
 import StandardButton from '../../components/StandardButton';
+import { colors } from '../../styles.global';
+import useAuth from '../../hooks/useAuth';
 
 type RootStackParamList = {
   Login: undefined
-  ConfirmationEmailSignUp: { userID: string }
+  Sales: undefined
 }
 
 interface Props{
-  navigation: StackNavigationProp<RootStackParamList, 'ConfirmationEmailSignUp'>
+  navigation: StackNavigationProp<RootStackParamList, 'Sales'>
 }
 
 const SignUp: React.FC<Props> = ({ navigation }: Props) => {
@@ -34,6 +35,8 @@ const SignUp: React.FC<Props> = ({ navigation }: Props) => {
 
   const [error, setError] = useState<string>('');
   const [load, setLoad] = useState<boolean>(false);
+
+  const { signIn } = useAuth();
 
   async function handleSubmit(): Promise<any> {
     setLoad(true);
@@ -81,7 +84,8 @@ const SignUp: React.FC<Props> = ({ navigation }: Props) => {
       }
 
       setLoad(false);
-      return navigation.navigate('ConfirmationEmailSignUp', { userID: data.id });
+      await signIn(data.token);
+      return navigation.navigate('Sales');
     } catch {
       setLoad(false);
       return setError('Houve um erro inesperado, tente novamente');
@@ -94,13 +98,28 @@ const SignUp: React.FC<Props> = ({ navigation }: Props) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <Container>
-          <Logo source={LogoPng} />
-          <TextTitle editable={false} placeholder="Registrar-se" placeholderTextColor="#2AB5D1" />
-          <BoxForm>
-            <BoxInput>
-              <IconInput source={UserPng} />
-              <Input
+        <LinearGradient
+          style={styles.container}
+          colors={colors.backgroundLinear}
+        >
+          <Image style={styles.logo} source={LogoPng} />
+          <TextInput
+            style={styles.textTitle}
+            editable={false}
+            placeholder="Registrar-se"
+            placeholderTextColor={colors.primaryFontColor}
+          />
+          <View style={styles.boxForm}>
+            <View style={styles.boxInput}>
+              <FontAwesome
+                name="user"
+                size={24}
+                color={colors.secondaryFontColor}
+                style={styles.iconInput}
+              />
+              <TextInput
+                style={styles.input}
+                placeholderTextColor={colors.secondaryFontColor}
                 placeholder="Nome ..."
                 value={name}
                 onChangeText={setName}
@@ -108,10 +127,17 @@ const SignUp: React.FC<Props> = ({ navigation }: Props) => {
                 autoCompleteType="name"
                 autoCorrect={false}
               />
-            </BoxInput>
-            <BoxInput>
-              <IconInput source={AtPng} />
-              <Input
+            </View>
+            <View style={styles.boxInput}>
+              <Entypo
+                name="email"
+                size={24}
+                color={colors.secondaryFontColor}
+                style={styles.iconInput}
+              />
+              <TextInput
+                style={styles.input}
+                placeholderTextColor={colors.secondaryFontColor}
                 placeholder="Email ..."
                 value={email}
                 onChangeText={setEmail}
@@ -120,10 +146,17 @@ const SignUp: React.FC<Props> = ({ navigation }: Props) => {
                 autoCompleteType="email"
                 keyboardType="email-address"
               />
-            </BoxInput>
-            <BoxInput>
-              <IconInput source={PassPng} />
-              <Input
+            </View>
+            <View style={styles.boxInput}>
+              <Entypo
+                name="key"
+                size={24}
+                color={colors.secondaryFontColor}
+                style={styles.iconInput}
+              />
+              <TextInput
+                style={styles.input}
+                placeholderTextColor={colors.secondaryFontColor}
                 placeholder="Senha ..."
                 value={password}
                 onChangeText={setPassword}
@@ -132,10 +165,17 @@ const SignUp: React.FC<Props> = ({ navigation }: Props) => {
                 keyboardType="default"
                 secureTextEntry
               />
-            </BoxInput>
-            <BoxInput>
-              <IconInput source={PassPng} />
-              <Input
+            </View>
+            <View style={styles.boxInput}>
+              <Entypo
+                name="key"
+                size={24}
+                color={colors.secondaryFontColor}
+                style={styles.iconInput}
+              />
+              <TextInput
+                style={styles.input}
+                placeholderTextColor={colors.secondaryFontColor}
                 placeholder="Confirme sua senha ..."
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
@@ -144,13 +184,17 @@ const SignUp: React.FC<Props> = ({ navigation }: Props) => {
                 keyboardType="default"
                 secureTextEntry
               />
-            </BoxInput>
-          </BoxForm>
+            </View>
+          </View>
 
           <StandardButton onPress={handleSubmit} label="Registrar" load={load} />
-          <TextError value={error} />
+          <TextInput
+            style={styles.textError}
+            editable={false}
+            value={error}
+          />
 
-        </Container>
+        </LinearGradient>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );

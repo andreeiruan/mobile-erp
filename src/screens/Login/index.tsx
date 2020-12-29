@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
 import {
-  Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback,
+  Keyboard, KeyboardAvoidingView, Platform, TextInput, TouchableWithoutFeedback,
+  Image, View, TouchableOpacity, Text,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Entypo } from '@expo/vector-icons';
 
+import { LinearGradient } from 'expo-linear-gradient';
 import api from '../../services/api';
 
-import {
-  BoxForm, Container, Logo, TextTitle, BoxInput, IconInput, Input,
-  TextError,
-  TextForgotPassword,
-  ButtonForgotPassword,
-  ButtonSignUp,
-  TextSignUp,
-} from './styles';
+import { styles } from './styles';
 
 import LogoPng from '../../assets/logo.png';
-import AtPng from '../../assets/at.png';
-import PassPng from '../../assets/pass.png';
+
 import StandardButton from '../../components/StandardButton';
+
 import useAuth from '../../hooks/useAuth';
+import { colors } from '../../styles.global';
 
 type RootStackParamList = {
   SignUp: undefined
@@ -75,18 +72,33 @@ const Login: React.FC<Props> = ({ navigation }: Props) => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, width: '100%', backgroundColor: '#F0F0F0' }}
+      style={{ flex: 1, width: '100%' }}
       behavior={Platform.OS === 'ios' ? 'height' : 'height'}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <Container>
-          <Logo source={LogoPng} />
-          <TextTitle editable={false} placeholder="Login" placeholderTextColor="#2AB5D1" />
-          <BoxForm>
+        <LinearGradient
+          colors={colors.backgroundLinear}
+          style={styles.container}
+        >
+          <Image source={LogoPng} style={styles.logo} />
+          <TextInput
+            style={styles.textTitle}
+            editable={false}
+            placeholder="Login"
+            placeholderTextColor={colors.primaryFontColor}
+          />
+          <View style={styles.boxForm}>
 
-            <BoxInput>
-              <IconInput source={AtPng} />
-              <Input
+            <View style={styles.boxInput}>
+              <Entypo
+                name="email"
+                size={24}
+                color={colors.secondaryFontColor}
+                style={styles.iconInput}
+              />
+              <TextInput
+                style={styles.input}
+                placeholderTextColor={colors.secondaryFontColor}
                 placeholder="Email ..."
                 value={email}
                 onChangeText={setEmail}
@@ -95,11 +107,18 @@ const Login: React.FC<Props> = ({ navigation }: Props) => {
                 autoCompleteType="email"
                 keyboardType="email-address"
               />
-            </BoxInput>
+            </View>
 
-            <BoxInput>
-              <IconInput source={PassPng} />
-              <Input
+            <View style={styles.boxInput}>
+              <Entypo
+                name="key"
+                size={24}
+                style={styles.iconInput}
+                color={colors.secondaryFontColor}
+              />
+              <TextInput
+                style={styles.input}
+                placeholderTextColor={colors.secondaryFontColor}
                 placeholder="Senha ..."
                 value={pass}
                 onChangeText={setPass}
@@ -108,25 +127,29 @@ const Login: React.FC<Props> = ({ navigation }: Props) => {
                 keyboardType="default"
                 secureTextEntry
               />
-            </BoxInput>
+            </View>
 
-          </BoxForm>
+          </View>
 
           <StandardButton onPress={handleSubmit} label="Entrar" load={load} />
-          <TextError editable={false} value={error} />
+          <TextInput
+            style={styles.textError}
+            editable={false}
+            value={error}
+          />
 
-          <ButtonForgotPassword activeOpacity={0.7}>
-            <TextForgotPassword>Esqueceu sua senha?</TextForgotPassword>
-          </ButtonForgotPassword>
+          <TouchableOpacity activeOpacity={0.7}>
+            <Text style={styles.textForgotPassword}>Esqueceu sua senha?</Text>
+          </TouchableOpacity>
 
-          <ButtonSignUp
+          <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => navigation.navigate('SignUp')}
           >
-            <TextSignUp>Não tem uma conta? Registre-se</TextSignUp>
-          </ButtonSignUp>
+            <Text style={styles.textSignUp}>Não tem uma conta? Registre-se</Text>
+          </TouchableOpacity>
 
-        </Container>
+        </LinearGradient>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );

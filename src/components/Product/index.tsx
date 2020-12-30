@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import api from '../../services/api';
+import { colors } from '../../styles.global';
 
 import { styles } from './styles';
 
@@ -40,10 +41,11 @@ const Product: React.FC<Props> = ({
   }, []);
   return (
     <View style={styles.boxProduct}>
+      <View style={styles.row}>
+        <Text style={styles.nameProduct}>{product?.name}</Text>
 
-      <Text style={styles.nameProduct}>{product?.name}</Text>
-
-      <Text style={styles.text}>{`Valor unitário: R$ ${unitaryValue.toFixed(2)}`}</Text>
+        <Text style={[styles.text, { color: colors.secondaryFontColor }]}>{`R$ ${unitaryValue.toFixed(2)}`}</Text>
+      </View>
 
       <Text style={styles.text}>{`Desconto por unidade: R$ ${discount.toFixed(2)}`}</Text>
 

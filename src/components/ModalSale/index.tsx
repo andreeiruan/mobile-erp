@@ -8,7 +8,6 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { styles } from './styles';
 import Product from '../Product';
-import { treatDate } from '../../utils/treats';
 import { colors } from '../../styles.global';
 
 interface IProduct{
@@ -66,53 +65,64 @@ const ModalSale: React.FC<Props> = ({ visible, setVisible, sale }: Props) => {
       style={styles.containerModal}
       visible={visible}
     >
-      <LinearGradient
-        colors={colors.backgroundLinear}
+      <View
         style={styles.box}
       >
 
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => setVisible(!visible)}
-          style={styles.buttonClose}
-        >
-          <AntDesign name="closecircleo" size={30} color={colors.primaryFontColor} />
-        </TouchableOpacity>
-
         <View style={styles.container}>
-          <View
-            style={styles.boxInfo}
-          >
-            <Text style={styles.textNameClient}>{sale?.nameCliente}</Text>
-            <View style={styles.boxInfoSale}>
-              <Text style={styles.textInfo}>{`Data da venda: ${treatDate(saleDate || '')}`}</Text>
-              <Text style={styles.textPayment}>
-                {`Pagamento: ${sale?.partialPayment ? 'Parcial' : sale?.confirmPay ? 'Pago' : 'Agendado'}`}
-              </Text>
+          <View style={styles.row}>
+            <View
+              style={styles.boxInfo}
+            >
+              <Text style={styles.textNameClient}>{sale?.nameCliente}</Text>
+              <View style={styles.boxInfoSale}>
+                <Text style={styles.textInfo}>{`Data da venda: ${saleDate}`}</Text>
+                <Text style={styles.textPayment}>
+                  {`Pagamento: ${sale?.partialPayment ? 'Parcial' : sale?.confirmPay ? 'Pago' : 'Agendado'}`}
+                </Text>
 
-              {sale?.partialPayment ? (
-                <View style={styles.boxPartial}>
-                  <View style={styles.boxDate}>
-                    <Text style={styles.payment}>{`Pago: R$ ${sale.amountPaid?.toFixed(2)}`}</Text>
-                    <Text style={styles.date}>{`Data: ${treatDate(saleDate || '')}`}</Text>
+                {sale?.partialPayment ? (
+                  <View style={styles.boxPartial}>
+                    <View style={styles.boxDate}>
+                      <Text style={styles.payment}>{`Pago: R$ ${sale.amountPaid?.toFixed(2)}`}</Text>
+                      <Text style={styles.date}>{`Data: ${saleDate}`}</Text>
+                    </View>
+                    <View style={styles.boxDate}>
+                      <Text style={styles.payment}>{`Falta: R$ ${sale.remainingAmount?.toFixed(2)}`}</Text>
+                      <Text style={styles.date}>{`Data: ${payDate}`}</Text>
+                    </View>
                   </View>
-                  <View style={styles.boxDate}>
-                    <Text style={styles.payment}>{`Falta: R$ ${sale.remainingAmount?.toFixed(2)}`}</Text>
-                    <Text style={styles.date}>{`Data: ${treatDate(payDate || '')}`}</Text>
-                  </View>
-                </View>
-              ) : (
-                <>
-                  {sale?.confirmPay
-                    ? (<Text style={styles.payment}>{`Data do Pagamento: ${treatDate(payDate || '')}`}</Text>)
-                    : (<Text>{`Agendado para: ${treatDate(payDate || '')}`}</Text>)}
-                </>
-              )}
+                ) : (
+                  <>
+                    {sale?.confirmPay
+                      ? (<Text style={styles.payment}>{`Data do Pagamento: ${payDate}`}</Text>)
+                      : (<Text>{`Agendado para: ${payDate}`}</Text>)}
+                  </>
+                )}
+
+              </View>
 
             </View>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setVisible(!visible)}
+              style={styles.buttonClose}
+            >
+              <AntDesign
+                name="closecircleo"
+                size={45}
+                style={{ marginTop: -25 }}
+                color={colors.highlightedFontColor}
+              />
+            </TouchableOpacity>
 
           </View>
-          <ScrollView style={{ width: '100%' }}>
+          <ScrollView style={{
+            width: '100%',
+            backgroundColor: colors.backgroundModal,
+            marginTop: 15,
+          }}
+          >
             {sale ? (
               <>
                 {sale.salesProducts.map((product) => (
@@ -133,7 +143,7 @@ const ModalSale: React.FC<Props> = ({ visible, setVisible, sale }: Props) => {
             <Text style={styles.textDiscount}>{`Descontos: R$ ${sale?.discount.toFixed(2)}`}</Text>
           </LinearGradient>
         </View>
-      </LinearGradient>
+      </View>
     </Modal>
   );
 };

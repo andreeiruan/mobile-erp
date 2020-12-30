@@ -5,7 +5,11 @@ import {
   Text, TouchableOpacity, View,
 } from 'react-native';
 import Lottie from 'lottie-react-native';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+
 import { LinearGradient } from 'expo-linear-gradient';
+import { ScrollView } from 'react-native-gesture-handler';
+import { StackNavigationProp } from '@react-navigation/stack';
 import api from '../../services/api';
 
 import { styles } from './styles';
@@ -46,8 +50,15 @@ interface Sale{
   remainingAmount: number | null
   amountPaid: number | null
 }
+type RootStackParamList = {
+  Sell: undefined
+}
 
-const Sales: React.FC = () => {
+interface Props{
+  navigation: StackNavigationProp<RootStackParamList, 'Sell'>
+}
+
+const Sales: React.FC<Props> = ({ navigation }) => {
   const [sales, setSales] = useState<any>();
   const [sale, setSale] = useState<Sale>();
   const [salesDay, setSalesDay] = useState<string[]>([]);
@@ -137,43 +148,52 @@ const Sales: React.FC = () => {
         sale={sale || undefined}
       />
 
-      <View style={styles.header} />
       <LinearGradient
         colors={colors.primaryColorLinear}
         style={styles.boxInfoSales}
       >
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={removeMonth}
-        >
-          <Image source={previousMonth} />
-        </TouchableOpacity>
-        <View style={styles.boxInfo}>
+        <View style={styles.boxSelectMonth}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={removeMonth}
+          >
+            <Image source={previousMonth} />
+          </TouchableOpacity>
+
           <Text style={styles.titleInfo}>{`Vendas ${months[month - 1]}`}</Text>
 
-          <View style={styles.row}>
-            <Text style={styles.text}>Total de vendas</Text>
-            <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
-          </View>
-
-          <View style={styles.row}>
-            <Text style={styles.text}>Total de gastos</Text>
-            <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
-          </View>
-
-          <View style={styles.row}>
-            <Text style={styles.text}>Lucro total</Text>
-            <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
-          </View>
-
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={addMonth}
+          >
+            <Image source={nextMonth} />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={addMonth}
-        >
-          <Image source={nextMonth} />
-        </TouchableOpacity>
+
       </LinearGradient>
+
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        style={styles.scrollInfoValues}
+      >
+
+        <View style={styles.boxInfoValue}>
+          <Text style={styles.text}>Total de vendas</Text>
+          <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
+        </View>
+
+        <View style={styles.boxInfoValue}>
+          <Text style={styles.text}>Total de gastos</Text>
+          <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
+        </View>
+
+        <View style={styles.boxInfoValue}>
+          <Text style={styles.text}>Lucro total</Text>
+          <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
+        </View>
+
+      </ScrollView>
       {loadSale ? (
         <Lottie
           source={Loading}
@@ -201,16 +221,20 @@ const Sales: React.FC = () => {
                   activeOpacity={0.7}
                   onPress={() => showModalSale(s.id)}
                 >
-                  <View style={styles.shadow}>
-                    <LinearGradient
-                      colors={[colors.menuColor, colors.menuColor]}
-                      style={styles.sale}
-                    >
+
+                  <LinearGradient
+                    colors={[colors.backgroundBox, colors.backgroundBox]}
+                    style={styles.sale}
+                  >
+                    <View style={styles.column}>
                       <Text style={styles.textSales}>{s.nameCliente}</Text>
-                      <Text style={styles.textSales}>{`R$ ${s?.saleTotal.toFixed(2)}`}</Text>
-                      <Text style={styles.textSales}>{s.confirmPay ? 'Pago' : 'Agendado'}</Text>
-                    </LinearGradient>
-                  </View>
+                      <Text style={[styles.textSales, { fontSize: 14 }]}>{`R$ ${s?.saleTotal.toFixed(2)}`}</Text>
+                    </View>
+                    <View style={styles.column}>
+                      <MaterialCommunityIcons name="logout" size={24} color={colors.primaryFontColor} />
+                    </View>
+                  </LinearGradient>
+
                 </TouchableOpacity>
 
               ))}
@@ -218,6 +242,14 @@ const Sales: React.FC = () => {
           )}
         />
       )}
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Sell')}
+        activeOpacity={0.7}
+        style={styles.buttonSell}
+      >
+        <MaterialIcons name="add" size={40} color="#fff" />
+      </TouchableOpacity>
 
     </LinearGradient>
   );

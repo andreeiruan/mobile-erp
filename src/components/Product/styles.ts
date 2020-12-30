@@ -11,15 +11,15 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 1, height: 1 },
     elevation: 3,
     shadowColor: '#333',
-    shadowOpacity: 2,
+    shadowOpacity: 0.3,
     backgroundColor: colors.menuColor,
     borderRadius: 5,
   },
   nameProduct: {
     fontSize: 18,
     fontWeight: '700',
-    marginBottom: 10,
-    color: colors.primaryFontColor,
+    marginBottom: 20,
+    color: colors.titleFontColor,
   },
   text: {
     fontSize: 16,

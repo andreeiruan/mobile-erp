@@ -4,11 +4,10 @@ import { colors } from '../../styles.global';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.menuColor,
+    backgroundColor: colors.primaryColorLinear[0],
     bottom: 0,
-    borderTopStartRadius: 30,
-    borderTopEndRadius: 30,
-    marginTop: '40%',
+    borderTopStartRadius: 80,
+    marginTop: '30%',
     width: '100%',
     alignSelf: 'center',
     borderRadius: 5,
@@ -21,23 +20,30 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 22,
-    color: colors.primaryFontColor,
+    color: colors.titleFontColor,
   },
   buttonClose: {
     marginRight: 20,
     marginTop: 10,
   },
-  boxInput: {},
+  boxInput: {
+  },
+  boxForm: {
+    backgroundColor: colors.menuColor,
+    height: '100%',
+    marginTop: 20,
+    paddingTop: 20,
+  },
   labelInput: {
     fontWeight: 'bold',
     width: '100%',
     fontSize: 18,
     color: colors.primaryFontColor,
-    marginLeft: '5%',
+    marginLeft: '10%',
     marginTop: 10,
   },
   input: {
-    marginLeft: '5%',
+    marginLeft: '10%',
     marginTop: 10,
     fontSize: 18,
     width: '60%',
@@ -47,26 +53,26 @@ const styles = StyleSheet.create({
     backgroundColor: colors.inputBackgroundColor,
     borderRadius: 5,
     shadowColor: '#000',
-    shadowOpacity: 20,
-    shadowOffset: { width: 3, height: 2 },
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 2, height: 1 },
     elevation: 3,
   },
   boxInfo: {
-    marginLeft: 25,
-    marginTop: '5%',
+    marginLeft: '10%',
+    marginTop: '10%',
   },
   textNameProduct: {
     fontSize: 25,
     fontWeight: 'bold',
-    color: colors.primaryFontColor,
+    color: colors.highlightedFontColor,
   },
   valueProduct: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: colors.primaryFontColor,
+    color: colors.highlightedFontColor,
   },
   boxAmount: {
-    marginLeft: 25,
+    marginLeft: '10%',
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 5,
@@ -99,7 +105,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
     color: colors.primaryFontColor,
   },
-
   boxDeliveried: {
     width: '100%',
     marginTop: 25,
@@ -111,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonDeliveried: {
-    marginLeft: '5%',
+    marginLeft: '10%',
   },
   textButtonDeliveried: {
     fontSize: 18,
@@ -123,7 +128,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   datePicker: {
-    marginLeft: '5%',
+    marginLeft: '10%',
     marginTop: 5,
   },
   footer: {

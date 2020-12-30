@@ -107,6 +107,9 @@ const FinalizeSale: React.FC<Props> = ({ navigation }) => {
       style={styles.container}
     >
       <ModalLoad visible={load} />
+      <LinearGradient colors={colors.primaryColorLinear} style={styles.header}>
+        <Text style={styles.title}>Finalize a venda</Text>
+      </LinearGradient>
 
       <ScrollView style={styles.scroll}>
 
@@ -132,7 +135,7 @@ const FinalizeSale: React.FC<Props> = ({ navigation }) => {
           </TouchableOpacity>
           {showSelectPayment && (
           <Picker
-            style={styles.input}
+            style={styles.inputSelect}
             selectedValue={selectPayment}
             mode="dialog"
             onValueChange={(value) => {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
-  TouchableOpacity, TextInput, View, Text, FlatList,
+  TouchableOpacity, View, Text, FlatList,
 } from 'react-native';
-import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -14,6 +14,8 @@ import api from '../../services/api';
 import { useCart } from '../../hooks/useCart';
 
 import ModalAddProductCart from '../../components/ModalAddProductCart';
+import InputSearchHeader from '../../components/InputSearchHeader';
+import FooterCart from '../../components/FooterCart';
 
 interface Product{
   id: string
@@ -84,6 +86,7 @@ const Sell: React.FC<Props> = ({ navigation }: Props) => {
   }, []);
 
   return (
+
     <LinearGradient
       style={styles.container}
       colors={colors.backgroundLinear}
@@ -94,13 +97,9 @@ const Sell: React.FC<Props> = ({ navigation }: Props) => {
         product={productSelect}
         addCart={addCart}
       />
-      <Text style={styles.labelSearch}>Pesquisa</Text>
-      <TextInput
-        placeholder="Pesquisa ..."
-        style={styles.inputSearch}
-        value={name}
-        onChangeText={setName}
-      />
+
+      <InputSearchHeader search={name} setSearch={setName} />
+
       <FlatList
         style={styles.scrollProducts}
         key="list"
@@ -112,39 +111,29 @@ const Sell: React.FC<Props> = ({ navigation }: Props) => {
           <View
             style={styles.boxProduct}
           >
-            <View style={styles.boxTextProduct}>
-              <Text style={styles.textValue}>{item.amount}</Text>
+
+            <View style={styles.column}>
               <Text style={styles.textName}>{item.name}</Text>
+              <Text style={styles.textValue}>{`R$ ${item.saleValue}`}</Text>
+              <Text style={styles.textValue}>{item.amount}</Text>
             </View>
-            {/* <Text style={styles.textValue}>{`R$ ${item.saleValue}`}</Text> */}
+
             <TouchableOpacity
               key={item.id}
               onPress={() => showModalAddProductCart(item)}
             >
-              {/* <Image source={buttonAddCart} /> */}
-              <FontAwesome5 name="cart-plus" size={24} color={colors.primaryFontColor} />
+              <FontAwesome5 name="cart-plus" size={30} color={colors.primaryFontColor} />
             </TouchableOpacity>
           </View>
         )}
       />
 
-      <LinearGradient colors={colors.secondaryColorLinear} style={styles.footer}>
-        <View style={styles.boxPriceText}>
-          <Text style={styles.money}>R$</Text>
-          <Text style={styles.priceCart}>{amountCart.toFixed(2)}</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.buttonCart}
-          activeOpacity={0.7}
-          disabled={cart.length === 0}
-          onPress={() => navigation.navigate('ShoppingCart')}
-        >
-          <>
-            <AntDesign name="shoppingcart" size={35} color={colors.secondaryFontColor} />
-            <Text style={styles.numberItemsCart}>{cart.length}</Text>
-          </>
-        </TouchableOpacity>
-      </LinearGradient>
+      <FooterCart
+        amountCart={amountCart}
+        handleCart={() => navigation.navigate('ShoppingCart')}
+        lengthCart={cart.length}
+      />
+
     </LinearGradient>
   );
 };

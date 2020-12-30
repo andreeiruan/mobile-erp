@@ -116,70 +116,71 @@ const ModalAddProductCart: React.FC<Props> = ({
                   setDiscount(0);
                 }}
               >
-                <AntDesign name="closecircleo" size={35} color={colors.primaryFontColor} />
+                <AntDesign name="closecircleo" size={35} color={colors.highlightedFontColor} />
               </TouchableOpacity>
 
             </View>
 
-            <Text style={styles.labelInput}>Quantidade</Text>
+            <View style={styles.boxForm}>
+              <Text style={styles.labelInput}>Quantidade</Text>
 
-            <View style={styles.boxAmount}>
+              <View style={styles.boxAmount}>
 
-              <TouchableOpacity
-                activeOpacity={0.7}
-                style={styles.buttonAmount}
-                onPress={removeAmount}
-              >
-                <Ionicons name="remove" size={28} color={colors.primaryFontColor} />
-              </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  style={styles.buttonAmount}
+                  onPress={removeAmount}
+                >
+                  <Ionicons name="remove" size={28} color={colors.primaryFontColor} />
+                </TouchableOpacity>
 
-              <Text style={styles.textAmount}>{amount}</Text>
+                <Text style={styles.textAmount}>{amount}</Text>
 
-              <TouchableOpacity
-                activeOpacity={0.7}
-                style={styles.buttonAmount}
-                onPress={addAmount}
-              >
-                <Ionicons name="add" size={28} color={colors.primaryFontColor} />
-              </TouchableOpacity>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  style={styles.buttonAmount}
+                  onPress={addAmount}
+                >
+                  <Ionicons name="add" size={28} color={colors.primaryFontColor} />
+                </TouchableOpacity>
 
-            </View>
+              </View>
 
-            <Text style={styles.labelInput}>Desconto por unidade</Text>
+              <Text style={styles.labelInput}>Desconto por unidade</Text>
 
-            <TextInput
-              style={styles.input}
-              placeholderTextColor={colors.secondaryColor}
-              keyboardType="decimal-pad"
-              value={String(discount)}
-              onChangeText={setDiscount}
-              placeholder="Digite o desconto ..."
-            />
+              <TextInput
+                style={styles.input}
+                placeholderTextColor={colors.secondaryColor}
+                keyboardType="decimal-pad"
+                value={String(discount)}
+                onChangeText={setDiscount}
+                placeholder="Digite o desconto ..."
+              />
 
-            <View style={styles.boxDeliveried}>
+              <View style={styles.boxDeliveried}>
 
-              <TouchableOpacity
-                style={styles.buttonDeliveried}
-                activeOpacity={0.7}
-                onPress={() => setDeliveried(!deliveried)}
-              >
-                <View style={styles.boxButtonDeliveried}>
-                  <Text style={styles.textButtonDeliveried}>Agendar entrega</Text>
-                  <SimpleLineIcons
-                    name="arrow-down"
-                    size={18}
-                    color={colors.primaryFontColor}
-                    style={{ marginTop: 5, marginLeft: 5 }}
-                  />
-                </View>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.buttonDeliveried}
+                  activeOpacity={0.7}
+                  onPress={() => setDeliveried(!deliveried)}
+                >
+                  <View style={styles.boxButtonDeliveried}>
+                    <Text style={styles.textButtonDeliveried}>Agendar entrega</Text>
+                    <SimpleLineIcons
+                      name="arrow-down"
+                      size={18}
+                      color={colors.primaryFontColor}
+                      style={{ marginTop: 5, marginLeft: 5 }}
+                    />
+                  </View>
+                </TouchableOpacity>
 
-              {deliveried && (
+                {deliveried && (
                 <View style={styles.boxSchedule}>
 
                   <Text style={styles.labelInput}>Quantidade para entrega</Text>
 
-                  <View style={[styles.boxAmount, { marginLeft: '5%' }]}>
+                  <View style={[styles.boxAmount, { marginLeft: '10%' }]}>
 
                     <TouchableOpacity
                       activeOpacity={0.7}
@@ -211,7 +212,7 @@ const ModalAddProductCart: React.FC<Props> = ({
                     mode="date"
                     minimumDate={new Date()}
                     locale="pt-BR"
-                      // @ts-ignore
+                    // @ts-ignore
                     onChange={onChangeDate}
                     style={styles.datePicker}
                   />
@@ -219,8 +220,9 @@ const ModalAddProductCart: React.FC<Props> = ({
 
                 </View>
 
-              )}
+                )}
 
+              </View>
             </View>
 
             <View style={styles.footer}>

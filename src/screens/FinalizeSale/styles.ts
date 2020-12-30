@@ -5,8 +5,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  header: {
+    height: '20%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: colors.highlightedFontColor,
+    marginTop: '10%',
+  },
   scroll: {
-    marginTop: '18%',
+    marginTop: '5%',
     width: '100%',
   },
   boxInput: {
@@ -18,12 +29,13 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   textSelect: {
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: 'bold',
     color: colors.primaryFontColor,
   },
   label: {
     fontSize: 22,
-    color: colors.primaryFontColor,
+    color: colors.titleFontColor,
     fontWeight: 'bold',
   },
   input: {
@@ -35,8 +47,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.inputBackgroundColor,
     color: colors.secondaryFontColor,
     shadowColor: '#000',
-    shadowOpacity: 20,
-    shadowOffset: { width: 3, height: 2 },
+    height: 45,
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 2, height: 1 },
     elevation: 3,
   },
   shadow: {
@@ -63,25 +76,24 @@ const styles = StyleSheet.create({
   money: {
     fontSize: 16,
     alignSelf: 'flex-end',
-    color: colors.secondaryFontColor,
+    color: colors.titleFontColor,
     marginRight: 5,
     fontWeight: 'bold',
   },
   priceCart: {
-    color: colors.secondaryFontColor,
+    color: colors.titleFontColor,
     fontSize: 18,
     fontWeight: 'bold',
   },
   buttonSale: {
-    width: '85%',
+    width: '95%',
     alignSelf: 'center',
-    marginTop: '10%',
+    marginTop: '5%',
     padding: 10,
-    // backgroundColor: colors.primaryFontColor,
     borderRadius: 8,
   },
   textButtonSale: {
-    color: colors.secondaryFontColor,
+    color: colors.titleFontColor,
     fontSize: 18,
     fontWeight: 'bold',
     alignSelf: 'center',
@@ -92,8 +104,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 5,
     color: colors.errorFontColor,
-    height: 20,
+    height: 15,
   },
+  inputSelect: {},
 });
 
 export { styles };

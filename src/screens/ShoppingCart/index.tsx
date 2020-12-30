@@ -27,26 +27,28 @@ const ShoppingCart: React.FC<Props> = ({ navigation }) => {
       colors={colors.backgroundLinear}
       style={styles.container}
     >
+      <LinearGradient colors={colors.primaryColorLinear} style={styles.header}>
+        <Text style={styles.title}>Carrinho da venda</Text>
+      </LinearGradient>
 
       <ScrollView style={styles.listProducts}>
         <>
           {cart.map((p) => (
-            <View key={p.id} style={styles.shadow}>
-              <View
-                style={styles.boxProduct}
-              >
-                <View style={styles.row}>
-                  <Text style={styles.nameProduct}>{p.name}</Text>
-                  <Text style={styles.unitaryValue}>{`R$ ${p.unitaryValue.toFixed(2)}`}</Text>
-                </View>
-                <View style={styles.row}>
-                  <Text style={styles.amount}>{`Quantidade: ${p.amount}`}</Text>
-                  <Text style={styles.discount}>{`R$ - ${Number(p.unitaryDiscount).toFixed(2)}`}</Text>
-                </View>
-                <View style={styles.row}>
-                  <Ionicons onPress={() => removeCart(p.id)} name="trash-sharp" size={24} color={colors.primaryFontColor} />
-                  <Text style={styles.amountValue}>{`R$ ${p.amountTotal.toFixed(2)}`}</Text>
-                </View>
+            <View
+              style={styles.boxProduct}
+              key={p.id}
+            >
+              <View style={styles.row}>
+                <Text style={styles.nameProduct}>{p.name}</Text>
+                <Text style={styles.unitaryValue}>{`R$ ${p.unitaryValue.toFixed(2)}`}</Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.amount}>{`Quantidade: ${p.amount}`}</Text>
+                <Text style={styles.discount}>{`R$ - ${Number(p.unitaryDiscount).toFixed(2)}`}</Text>
+              </View>
+              <View style={styles.row}>
+                <Ionicons onPress={() => removeCart(p.id)} name="trash-sharp" size={24} color={colors.primaryFontColor} />
+                <Text style={styles.amountValue}>{`R$ ${p.amountTotal.toFixed(2)}`}</Text>
               </View>
             </View>
           ))}

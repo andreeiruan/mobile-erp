@@ -5,14 +5,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  shadow: {
-    shadowColor: '#000',
-    shadowOpacity: 20,
-    shadowOffset: { width: 3, height: 2 },
-    elevation: 3,
+  header: {
+    height: '20%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    color: colors.highlightedFontColor,
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginTop: '5%',
   },
   listProducts: {
-    marginTop: '40%',
+    marginTop: '5%',
   },
   boxProduct: {
     marginVertical: 5,
@@ -22,7 +27,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 5,
     shadowColor: '#000',
-    shadowOpacity: 20,
+    shadowOpacity: 0.3,
     shadowOffset: { width: 1, height: 1 },
     elevation: 3,
     backgroundColor: colors.menuColor,
@@ -34,9 +39,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   nameProduct: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: colors.primaryFontColor,
+    color: colors.titleFontColor,
   },
   amount: {
     fontSize: 16,
@@ -69,17 +74,17 @@ const styles = StyleSheet.create({
   money: {
     fontSize: 16,
     alignSelf: 'flex-end',
-    color: colors.secondaryFontColor,
+    color: colors.titleFontColor,
     marginRight: 5,
     fontWeight: 'bold',
   },
   priceCart: {
-    color: colors.secondaryFontColor,
+    color: colors.titleFontColor,
     fontSize: 18,
     fontWeight: 'bold',
   },
   buttonSale: {
-    width: '85%',
+    width: '95%',
     alignSelf: 'center',
     marginTop: '10%',
     padding: 10,
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   textButtonSale: {
-    color: colors.secondaryFontColor,
+    color: colors.titleFontColor,
     fontSize: 18,
     fontWeight: 'bold',
     alignSelf: 'center',

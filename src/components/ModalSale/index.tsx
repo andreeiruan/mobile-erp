@@ -96,7 +96,7 @@ const ModalSale: React.FC<Props> = ({ visible, setVisible, sale }: Props) => {
                   <>
                     {sale?.confirmPay
                       ? (<Text style={styles.payment}>{`Data do Pagamento: ${payDate}`}</Text>)
-                      : (<Text>{`Agendado para: ${payDate}`}</Text>)}
+                      : (<Text style={styles.payment}>{`Agendado para: ${payDate}`}</Text>)}
                   </>
                 )}
 

@@ -1,14 +1,16 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
-import { FontAwesome } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import {
-  FlatList, Text, TextInput, TouchableOpacity, View,
+  FlatList, Text, TouchableOpacity, View,
 } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import api from '../../services/api';
 import { colors } from '../../styles.global';
 
 import { styles } from './styles';
+import InputSearchHeader from '../../components/InputSearchHeader';
+import ModalEditProduct from '../../components/ModalEditProduct';
 
 interface Product{
   id: string
@@ -17,8 +19,8 @@ interface Product{
   saleValue: number
   amount: number
   userId: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
 }
 
 type RootParamList = {
@@ -34,6 +36,8 @@ const Stock: React.FC<Props> = ({ navigation }) => {
   const [name, setName] = useState<string>('');
   const [searchProducts, setSearchProducts] = useState<Product[]>([]);
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [showProduct, setShowProduct] = useState<boolean>(false);
+  const [product, setProduct] = useState<Product>({} as Product);
 
   async function getProducts() {
     const { data } = await api.get('/products', { params: { name } });
@@ -63,33 +67,30 @@ const Stock: React.FC<Props> = ({ navigation }) => {
     setRefreshing(false);
   }
 
+  async function getProduct(id: string) {
+    const { data } = await api.get(`/products/${id}`);
+
+    setProduct(data);
+  }
+
+  async function showModalProduct(id: string) {
+    await getProduct(id);
+    setShowProduct(true);
+  }
+
   return (
     <LinearGradient
       colors={colors.backgroundLinear}
       style={styles.container}
     >
 
-      <View style={styles.boxSearch}>
-        <Text style={styles.label}>Pesquisa</Text>
-        <View style={styles.boxInput}>
-          <FontAwesome
-            name="search"
-            style={styles.iconInput}
-            size={24}
-            color={colors.secondaryFontColor}
-          />
-          <TextInput
-            placeholder="Pesquisa ..."
-            value={name}
-            onChangeText={setName}
-            autoCapitalize="none"
-            autoCorrect={false}
-            autoCompleteType="email"
-            keyboardType="email-address"
-            style={styles.inputSearch}
-          />
-        </View>
-      </View>
+      <ModalEditProduct
+        product={product}
+        setVisible={setShowProduct}
+        visible={showProduct}
+      />
+
+      <InputSearchHeader search={name} setSearch={setName} />
 
       <FlatList
         key="list"
@@ -100,17 +101,27 @@ const Stock: React.FC<Props> = ({ navigation }) => {
         onRefresh={handleRefresh}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity key={item.id} activeOpacity={0.7} style={styles.boxProduct}>
-
+          <TouchableOpacity
+            key={item.id}
+            activeOpacity={0.7}
+            style={styles.boxProduct}
+            onPress={() => {
+              showModalProduct(item.id);
+            }}
+          >
             <View style={styles.row}>
-              <Text style={[styles.textAmount,
-                { color: item.amount < 1 ? colors.errorFontColor : colors.primaryFontColor }]}
-              >
-                {item.amount}
-              </Text>
-              <Text style={styles.textName}>{item.name}</Text>
-
-              <Text style={styles.textValue}>{`R$ ${item.saleValue}`}</Text>
+              <View style={styles.column}>
+                <Text style={styles.textName}>{item.name}</Text>
+                <Text style={styles.textValue}>{`R$ ${item.saleValue}`}</Text>
+                <Text style={[styles.textAmount,
+                  { color: item.amount < 1 ? colors.errorFontColor : colors.primaryFontColor }]}
+                >
+                  {item.amount}
+                </Text>
+              </View>
+              <View style={styles.column}>
+                <MaterialCommunityIcons name="logout" size={24} color={colors.primaryFontColor} />
+              </View>
             </View>
 
           </TouchableOpacity>

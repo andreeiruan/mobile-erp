@@ -5,32 +5,6 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  boxSearch: {
-    marginTop: '20%',
-    width: '90%',
-    alignSelf: 'center',
-    marginBottom: 30,
-  },
-  label: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: colors.primaryFontColor,
-    marginBottom: 10,
-  },
-  iconInput: {
-    marginRight: 10,
-  },
-  boxInput: {
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    borderRadius: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.inputBackgroundColor,
-  },
-  inputSearch: {
-    fontSize: 22,
-  },
   flatListProduct: {
     marginTop: '5%',
     width: '100%',
@@ -38,33 +12,39 @@ export const styles = StyleSheet.create({
   },
   boxProduct: {
     width: '90%',
+    height: 80,
     alignSelf: 'center',
     padding: 10,
     marginTop: 15,
     borderRadius: 8,
     backgroundColor: colors.menuColor,
-    shadowOffset: { width: 2, height: 2 },
+    shadowOffset: { width: 3, height: 1 },
     shadowColor: '#111',
-    shadowOpacity: 2,
+    shadowOpacity: 0.3,
     elevation: 3,
-
+  },
+  column: {
+    justifyContent: 'center',
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    height: '100%',
+    paddingHorizontal: 15,
   },
   textName: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: colors.primaryFontColor,
+    color: colors.titleFontColor,
   },
   textValue: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     color: colors.primaryFontColor,
   },
   textAmount: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     color: colors.primaryFontColor,
   },

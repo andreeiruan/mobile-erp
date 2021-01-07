@@ -2,10 +2,10 @@ import React, { createContext, useState } from 'react';
 
 export interface ProductOnCart{
   id: string
-  name: string
+  name?: string
   amount: number
   unitaryValue: number
-  unitaryDiscount: number
+  unitaryDiscount?: number
   amountTotal: number
 }
 

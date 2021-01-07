@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     width: '85%',
     alignSelf: 'center',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: 15,
     padding: 10,
     shadowOffset: { width: 1, height: 1 },
     elevation: 3,
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   nameProduct: {
     fontSize: 18,
     fontWeight: '700',
-    marginBottom: 20,
+    marginBottom: 10,
     color: colors.titleFontColor,
   },
   text: {

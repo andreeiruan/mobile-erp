@@ -44,13 +44,15 @@ const screenOptionsStack: StackNavigationOptions = {
 };
 
 const StackStock: React.FC = () => (
-  <Stack.Navigator
-    headerMode="none"
-    screenOptions={screenOptionsStack}
-  >
-    <Stack.Screen name="Stock" component={Stock} options={{ title: 'Estoque' }} />
-    <Stack.Screen name="RegisterStock" component={RegisterStock} options={{ title: 'Registrar estoque' }} />
-  </Stack.Navigator>
+  <CartProvider>
+    <Stack.Navigator
+      headerMode="none"
+      screenOptions={screenOptionsStack}
+    >
+      <Stack.Screen name="Stock" component={Stock} options={{ title: 'Estoque' }} />
+      <Stack.Screen name="RegisterStock" component={RegisterStock} options={{ title: 'Registrar estoque' }} />
+    </Stack.Navigator>
+  </CartProvider>
 );
 
 const StackSale: React.FC = () => (

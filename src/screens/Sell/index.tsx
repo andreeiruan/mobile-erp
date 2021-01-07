@@ -122,7 +122,7 @@ const Sell: React.FC<Props> = ({ navigation }: Props) => {
               key={item.id}
               onPress={() => showModalAddProductCart(item)}
             >
-              <FontAwesome5 name="cart-plus" size={30} color={colors.primaryFontColor} />
+              <FontAwesome5 name="cart-plus" size={24} color={colors.primaryFontColor} />
             </TouchableOpacity>
           </View>
         )}

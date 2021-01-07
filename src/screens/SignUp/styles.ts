@@ -28,8 +28,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     shadowColor: '#111',
-    shadowOpacity: 20,
-    shadowOffset: { width: 3, height: 5 },
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 2, height: 3 },
     elevation: 3,
   },
   iconInput: {
@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
   textError: {
     fontSize: 18,
     color: colors.errorFontColor,
-    fontWeight: 'bold',
-    marginTop: 15,
+    fontWeight: '500',
+    marginTop: 10,
   },
 });

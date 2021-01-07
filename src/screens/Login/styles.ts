@@ -29,8 +29,8 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 15,
     shadowColor: '#111',
-    shadowOpacity: 20,
-    shadowOffset: { width: 3, height: 5 },
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 2, height: 3 },
     elevation: 3,
   },
   iconInput: {

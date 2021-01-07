@@ -5,7 +5,7 @@ import {
   Text, TouchableOpacity, View,
 } from 'react-native';
 import Lottie from 'lottie-react-native';
-import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, MaterialIcons, Entypo } from '@expo/vector-icons';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -92,14 +92,16 @@ const Sales: React.FC<Props> = ({ navigation }) => {
     const { data } = await api.get('/sales', {
       params: {
         month,
+        year: month - 1 > new Date().getMonth()
+          ? new Date().getFullYear() - 1 : new Date().getFullYear(),
       },
     });
 
     setSales(data.sales);
-
-    setSalesDay(Object.keys(data.sales).sort((a, b) => Number(b) - Number(a)));
-
-    setSaleAmount(data.amountSale);
+    if (data.sales) {
+      setSalesDay(Object.keys(data.sales).sort((a, b) => Number(b) - Number(a)));
+      setSaleAmount(data.amountSale);
+    }
 
     setLoadFlatList(false);
   }
@@ -110,14 +112,16 @@ const Sales: React.FC<Props> = ({ navigation }) => {
     const { data } = await api.get('/sales', {
       params: {
         month,
+        year: month - 1 > new Date().getMonth()
+          ? new Date().getFullYear() - 1 : new Date().getFullYear(),
       },
     });
 
     setSales(data.sales);
-
-    setSalesDay(Object.keys(data.sales).sort((a, b) => Number(b) - Number(a)));
-
-    setSaleAmount(data.amountSale);
+    if (data.sales) {
+      setSalesDay(Object.keys(data.sales).sort((a, b) => Number(b) - Number(a)));
+      setSaleAmount(data.amountSale);
+    }
 
     setLoadSale(false);
   }
@@ -202,45 +206,55 @@ const Sales: React.FC<Props> = ({ navigation }) => {
           resizeMode="center"
         />
       ) : (
-        <FlatList
-          style={styles.flatListSales}
-          key="list"
-          data={salesDay}
-        // onEndReached={} // todo: pagination
-        // onEndReachedThreshold={}
-          onRefresh={handleRefreshList}
-          refreshing={loadFlatList}
-          keyExtractor={(item) => item}
-          renderItem={({ item }) => (
-            <View style={styles.boxSale} key={item}>
-              <Text style={styles.textDateSale}>{new Date().getDate() === Number(item) ? 'Hoje' : `${item}/${month}`}</Text>
-              {sales[item].map((s: Sale) => (
-                <TouchableOpacity
-                  key={s.id}
-                  style={styles.buttonSale}
-                  activeOpacity={0.7}
-                  onPress={() => showModalSale(s.id)}
-                >
+        <>
+          {salesDay.length > 0 ? (
+            <FlatList
+              style={styles.flatListSales}
+              key="list"
+              data={salesDay}
+          // onEndReached={} // todo: pagination
+          // onEndReachedThreshold={}
+              onRefresh={handleRefreshList}
+              refreshing={loadFlatList}
+              keyExtractor={(item) => item}
+              renderItem={({ item }) => (
+                <View style={styles.boxSale} key={item}>
+                  <Text style={styles.textDateSale}>{new Date().getDate() === Number(item) ? 'Hoje' : `${item}/${month}`}</Text>
+                  {sales[item].map((s: Sale) => (
+                    <TouchableOpacity
+                      key={s.id}
+                      style={styles.buttonSale}
+                      activeOpacity={0.7}
+                      onPress={() => showModalSale(s.id)}
+                    >
 
-                  <LinearGradient
-                    colors={[colors.backgroundBox, colors.backgroundBox]}
-                    style={styles.sale}
-                  >
-                    <View style={styles.column}>
-                      <Text style={styles.textSales}>{s.nameCliente}</Text>
-                      <Text style={[styles.textSales, { fontSize: 14 }]}>{`R$ ${s?.saleTotal.toFixed(2)}`}</Text>
-                    </View>
-                    <View style={styles.column}>
-                      <MaterialCommunityIcons name="logout" size={24} color={colors.primaryFontColor} />
-                    </View>
-                  </LinearGradient>
+                      <LinearGradient
+                        colors={[colors.menuColor, colors.menuColor]}
+                        style={styles.sale}
+                      >
+                        <View style={styles.column}>
+                          <Text style={styles.textNameClient}>{s.nameCliente}</Text>
+                          <Text style={[styles.textSales, { fontSize: 14 }]}>{`R$ ${s?.saleTotal.toFixed(2)}`}</Text>
+                        </View>
+                        <View style={styles.column}>
+                          <MaterialCommunityIcons name="logout" size={24} color={colors.primaryFontColor} />
+                        </View>
+                      </LinearGradient>
 
-                </TouchableOpacity>
+                    </TouchableOpacity>
 
-              ))}
+                  ))}
+                </View>
+              )}
+            />
+          ) : (
+            <View style={styles.boxSad}>
+              <Text style={styles.textSad}>Você não tem nenhuma venda ainda esse mês</Text>
+              <Entypo name="emoji-sad" size={40} color={colors.primaryFontColor} />
             </View>
           )}
-        />
+        </>
+
       )}
 
       <TouchableOpacity

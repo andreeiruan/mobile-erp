@@ -23,7 +23,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     borderTopStartRadius: 85,
-    backgroundColor: colors.primaryColorLinear[0],
+    backgroundColor: colors.menuColor,
+    shadowColor: '#222',
+    shadowOffset: { width: 2, height: 3 },
+    shadowOpacity: 0.3,
 
   },
   buttonClose: {
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
   textNameClient: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: colors.highlightedFontColor,
+    color: colors.titleFontColor,
     marginLeft: 25,
     marginTop: 15,
     marginBottom: 20,
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
   boxInfoSale: {},
   textInfo: {
     fontSize: 18,
-    color: colors.highlightedFontColor,
+    color: colors.titleFontColor,
     marginLeft: 25,
     fontWeight: '700',
   },
@@ -63,18 +66,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   boxDate: {
-  },
-  payment: {
-    fontSize: 18,
-    color: colors.highlightedFontColor,
-    marginLeft: 25,
-    fontWeight: '700',
-  },
-  date: {
-    fontSize: 18,
-    color: colors.highlightedFontColor,
-    marginLeft: 25,
-    fontWeight: '700',
   },
   footer: {
     width: '100%',

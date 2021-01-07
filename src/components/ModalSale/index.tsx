@@ -77,26 +77,26 @@ const ModalSale: React.FC<Props> = ({ visible, setVisible, sale }: Props) => {
               <Text style={styles.textNameClient}>{sale?.nameCliente}</Text>
               <View style={styles.boxInfoSale}>
                 <Text style={styles.textInfo}>{`Data da venda: ${saleDate}`}</Text>
-                <Text style={styles.textPayment}>
+                <Text style={styles.textInfo}>
                   {`Pagamento: ${sale?.partialPayment ? 'Parcial' : sale?.confirmPay ? 'Pago' : 'Agendado'}`}
                 </Text>
 
                 {sale?.partialPayment ? (
                   <View style={styles.boxPartial}>
                     <View style={styles.boxDate}>
-                      <Text style={styles.payment}>{`Pago: R$ ${sale.amountPaid?.toFixed(2)}`}</Text>
-                      <Text style={styles.date}>{`Data: ${saleDate}`}</Text>
+                      <Text style={styles.textInfo}>{`Pago: R$ ${sale.amountPaid?.toFixed(2)}`}</Text>
+                      <Text style={styles.textInfo}>{`Data: ${saleDate}`}</Text>
                     </View>
                     <View style={styles.boxDate}>
-                      <Text style={styles.payment}>{`Falta: R$ ${sale.remainingAmount?.toFixed(2)}`}</Text>
-                      <Text style={styles.date}>{`Data: ${payDate}`}</Text>
+                      <Text style={styles.textInfo}>{`Falta: R$ ${sale.remainingAmount?.toFixed(2)}`}</Text>
+                      <Text style={styles.textInfo}>{`Data: ${payDate}`}</Text>
                     </View>
                   </View>
                 ) : (
                   <>
                     {sale?.confirmPay
-                      ? (<Text style={styles.payment}>{`Data do Pagamento: ${payDate}`}</Text>)
-                      : (<Text style={styles.payment}>{`Agendado para: ${payDate}`}</Text>)}
+                      ? (<Text style={styles.textInfo}>{`Data do Pagamento: ${payDate}`}</Text>)
+                      : (<Text style={styles.textInfo}>{`Agendado para: ${payDate}`}</Text>)}
                   </>
                 )}
 
@@ -112,14 +112,14 @@ const ModalSale: React.FC<Props> = ({ visible, setVisible, sale }: Props) => {
                 name="closecircleo"
                 size={45}
                 style={{ marginTop: -25 }}
-                color={colors.highlightedFontColor}
+                color={colors.titleFontColor}
               />
             </TouchableOpacity>
 
           </View>
           <ScrollView style={{
             width: '100%',
-            backgroundColor: colors.backgroundModal,
+            backgroundColor: colors.menuColor,
             marginTop: 15,
           }}
           >

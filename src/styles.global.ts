@@ -1,23 +1,46 @@
-// const colors = {
-//   backgroundLinear: ['#363645', '#30303e', '#292935', '#23232d'],
-//   // primaryColorLinear: ['#b55fc6', '#965dcd', '#8d61dc', '#7b61e7'],
-//   primaryColorLinear: ['#4BB3F8', '#33A4EF', '#2092DD', '#0676C0'],
-//   secondaryColorLinear: ['#E0E0E0', '#F8F3F3', '#E0E0E0', '#E2E2E2'],
+interface ThemeProtocol {
+  backgroundLinear: string[]
+  backgroundBox: string
+  backgroundModal: string
+  primaryColorLinear: string[]
+  secondaryColorLinear: string[]
 
-//   inputBackgroundColor: '#FFF',
-//   primaryColor: '#33A4EF',
-//   secondaryColor: '#347497',
+  inputBackgroundColor: string
+  primaryColor: string
+  secondaryColor: string
 
-//   primaryFontColor: '#b9b9be',
-//   secondaryFontColor: '#393948',
-//   highlightedFontColor: '#FEFEFE',
-//   errorFontColor: '#C81C1C',
+  primaryFontColor: string
+  titleFontColor: string
+  secondaryFontColor: string
+  highlightedFontColor: string
+  errorFontColor: string
 
-//   menuColor: '#393948',
-//   menuActiveFontColor: '#0676C0',
-// };
+  menuColor: string
+  menuActiveFontColor: string
+}
 
-const colors = {
+const darkTheme: ThemeProtocol = {
+  backgroundLinear: ['#363645', '#30303e', '#292935', '#23232d'],
+  backgroundBox: '#363645',
+  backgroundModal: '#363645',
+  primaryColorLinear: ['#4BB3F8', '#33A4EF', '#2092DD', '#0676C0'],
+  secondaryColorLinear: ['#E0E0E0', '#F8F3F3', '#E0E0E0', '#E2E2E2'],
+
+  inputBackgroundColor: '#FFF',
+  primaryColor: '#33A4EF',
+  secondaryColor: '#347497',
+
+  primaryFontColor: '#b9b9be',
+  titleFontColor: '#0676C0',
+  secondaryFontColor: '#393948',
+  highlightedFontColor: '#FEFEFE',
+  errorFontColor: '#C81C1C',
+
+  menuColor: '#393948',
+  menuActiveFontColor: '#0676C0',
+};
+
+const lightTheme: ThemeProtocol = {
   backgroundLinear: ['#fff', '#fff', '#fff', '#fff'],
   backgroundBox: '#efefef',
   backgroundModal: '#EFEFEF',
@@ -31,7 +54,6 @@ const colors = {
   primaryFontColor: '#555555',
   titleFontColor: '#0676C0',
   secondaryFontColor: '#393948',
-  fontBoxColor: '#3d5dff',
   highlightedFontColor: '#FFF',
   errorFontColor: '#C81C1C',
 
@@ -39,4 +61,6 @@ const colors = {
   menuActiveFontColor: '#0676C0',
 };
 
-export { colors };
+const colors = lightTheme;
+
+export { colors, darkTheme, lightTheme };

@@ -38,6 +38,12 @@ export const CartProvider: React.FC = ({ children }) => {
     listProducts = listProducts.filter((p) => p.id !== id);
 
     setCart(listProducts);
+
+    if (listProducts.length > 0) {
+      setAmountCart(listProducts.map((p) => p.amountTotal).reduce((s, n) => s + n));
+    } else {
+      setAmountCart(0);
+    }
   }
 
   function clearCart() {

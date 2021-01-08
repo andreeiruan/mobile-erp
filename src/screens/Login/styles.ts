@@ -11,12 +11,12 @@ export const styles = StyleSheet.create({
   textTitle: {
     fontSize: 25,
     fontWeight: 'bold',
-    marginTop: 15,
+    marginTop: 35,
   },
   boxForm: {
     width: '100%',
     alignItems: 'center',
-    margin: 0,
+    marginTop: '10%',
     marginBottom: '10%',
   },
   boxInput: {
@@ -28,9 +28,9 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.inputBackgroundColor,
     borderRadius: 5,
     paddingHorizontal: 15,
-    shadowColor: '#111',
+    shadowColor: '#222',
     shadowOpacity: 0.3,
-    shadowOffset: { width: 2, height: 3 },
+    shadowOffset: { width: 2, height: 1 },
     elevation: 3,
   },
   iconInput: {
@@ -42,7 +42,8 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     height: '100%',
     width: '100%',
-    color: colors.secondaryFontColor,
+    color: colors.primaryFontColor,
+    paddingBottom: 7,
   },
   textForgotPassword: {
     fontSize: 16,

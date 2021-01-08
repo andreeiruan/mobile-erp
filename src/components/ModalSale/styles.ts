@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   box: {
-    height: '85%',
+    height: '90%',
     width: '100%',
     position: 'absolute',
     bottom: 0,

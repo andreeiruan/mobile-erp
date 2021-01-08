@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
   boxForm: {
     width: '100%',
     alignItems: 'center',
+    marginTop: '5%',
     marginBottom: '10%',
   },
   boxInput: {
@@ -29,7 +30,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 15,
     shadowColor: '#111',
     shadowOpacity: 0.3,
-    shadowOffset: { width: 2, height: 3 },
+    shadowOffset: { width: 2, height: 1 },
     elevation: 3,
   },
   iconInput: {
@@ -42,6 +43,7 @@ export const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     color: colors.secondaryFontColor,
+    paddingBottom: 7,
   },
   textError: {
     fontSize: 18,

@@ -114,12 +114,12 @@ const SignUp: React.FC<Props> = ({ navigation }: Props) => {
               <FontAwesome
                 name="user"
                 size={24}
-                color={colors.secondaryFontColor}
+                color={colors.primaryFontColor}
                 style={styles.iconInput}
               />
               <TextInput
                 style={styles.input}
-                placeholderTextColor={colors.secondaryFontColor}
+                placeholderTextColor={colors.primaryFontColor}
                 placeholder="Nome ..."
                 value={name}
                 onChangeText={setName}
@@ -132,12 +132,12 @@ const SignUp: React.FC<Props> = ({ navigation }: Props) => {
               <Entypo
                 name="email"
                 size={24}
-                color={colors.secondaryFontColor}
+                color={colors.primaryFontColor}
                 style={styles.iconInput}
               />
               <TextInput
                 style={styles.input}
-                placeholderTextColor={colors.secondaryFontColor}
+                placeholderTextColor={colors.primaryFontColor}
                 placeholder="Email ..."
                 value={email}
                 onChangeText={setEmail}
@@ -151,12 +151,12 @@ const SignUp: React.FC<Props> = ({ navigation }: Props) => {
               <Entypo
                 name="key"
                 size={24}
-                color={colors.secondaryFontColor}
+                color={colors.primaryFontColor}
                 style={styles.iconInput}
               />
               <TextInput
                 style={styles.input}
-                placeholderTextColor={colors.secondaryFontColor}
+                placeholderTextColor={colors.primaryFontColor}
                 placeholder="Senha ..."
                 value={password}
                 onChangeText={setPassword}
@@ -170,12 +170,12 @@ const SignUp: React.FC<Props> = ({ navigation }: Props) => {
               <Entypo
                 name="key"
                 size={24}
-                color={colors.secondaryFontColor}
+                color={colors.primaryFontColor}
                 style={styles.iconInput}
               />
               <TextInput
                 style={styles.input}
-                placeholderTextColor={colors.secondaryFontColor}
+                placeholderTextColor={colors.primaryFontColor}
                 placeholder="Confirme sua senha ..."
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}

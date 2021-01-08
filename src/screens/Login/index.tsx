@@ -36,7 +36,7 @@ const Login: React.FC<Props> = ({ navigation }: Props) => {
 
   const { signIn } = useAuth();
 
-  async function handleSubmit(): Promise<any> {
+  async function handleSubmit() { // eslint-disable-line
     setLoad(true);
     if (!email) {
       setLoad(false);
@@ -61,19 +61,21 @@ const Login: React.FC<Props> = ({ navigation }: Props) => {
         return setError('Email ou senha inválidos');
       }
 
-      setLoad(false);
       await signIn(data.token);
-      return navigation.navigate('Sales');
+      setTimeout(() => {
+        setLoad(false);
+        navigation.navigate('Sales');
+      }, 1500);
     } catch {
       setLoad(false);
-      return setError('Houve um erro inesperado');
+      setError('Houve um erro inesperado');
     }
   }
 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, width: '100%' }}
-      behavior={Platform.OS === 'ios' ? 'height' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <LinearGradient
@@ -93,12 +95,12 @@ const Login: React.FC<Props> = ({ navigation }: Props) => {
               <Entypo
                 name="email"
                 size={24}
-                color={colors.secondaryFontColor}
+                color={colors.primaryFontColor}
                 style={styles.iconInput}
               />
               <TextInput
                 style={styles.input}
-                placeholderTextColor={colors.secondaryFontColor}
+                placeholderTextColor={colors.primaryFontColor}
                 placeholder="Email ..."
                 value={email}
                 onChangeText={setEmail}
@@ -114,11 +116,11 @@ const Login: React.FC<Props> = ({ navigation }: Props) => {
                 name="key"
                 size={24}
                 style={styles.iconInput}
-                color={colors.secondaryFontColor}
+                color={colors.primaryFontColor}
               />
               <TextInput
                 style={styles.input}
-                placeholderTextColor={colors.secondaryFontColor}
+                placeholderTextColor={colors.primaryFontColor}
                 placeholder="Senha ..."
                 value={pass}
                 onChangeText={setPass}

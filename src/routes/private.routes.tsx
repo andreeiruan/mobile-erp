@@ -3,7 +3,7 @@ import { createStackNavigator, StackNavigationOptions } from '@react-navigation/
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Sales from '../screens/Sales';
-import Stock from '../screens/Stock';
+import Products from '../screens/Products';
 import Sell from '../screens/Sell';
 import Settings from '../screens/Settings';
 import IconsTabs from '../components/IconsTabs';
@@ -24,6 +24,11 @@ import ShoppingCart from '../screens/ShoppingCart';
 import { CartProvider } from '../contexts/CartContext';
 import RegisterStock from '../screens/RegisterStock';
 import FinalizeSale from '../screens/FinalizeSale';
+import StockControl from '../screens/StockControl';
+import CartShipmentBuy from '../screens/CartShipmentBuy';
+import FinalizeShipmentBuy from '../screens/FinalizeShipmentBuy';
+import NewProduct from '../screens/NewProduct';
+import Shipment from '../screens/Shipment';
 
 const Tab = createBottomTabNavigator();
 
@@ -49,8 +54,13 @@ const StackStock: React.FC = () => (
       headerMode="none"
       screenOptions={screenOptionsStack}
     >
-      <Stack.Screen name="Stock" component={Stock} options={{ title: 'Estoque' }} />
-      <Stack.Screen name="RegisterStock" component={RegisterStock} options={{ title: 'Registrar estoque' }} />
+      <Stack.Screen name="StockControl" component={StockControl} />
+      <Stack.Screen name="Products" component={Products} />
+      <Stack.Screen name="NewProduct" component={NewProduct} />
+      <Stack.Screen name="RegisterStock" component={RegisterStock} />
+      <Stack.Screen name="CartShipmentBuy" component={CartShipmentBuy} />
+      <Stack.Screen name="FinalizeShipmentBuy" component={FinalizeShipmentBuy} />
+      <Stack.Screen name="Shipment" component={Shipment} />
     </Stack.Navigator>
   </CartProvider>
 );

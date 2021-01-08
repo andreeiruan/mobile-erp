@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   TouchableOpacity, View, Text, FlatList,
 } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -29,11 +29,12 @@ interface Product{
 }
 
 type RootStackParamList = {
-  ShoppingCart: undefined
+  CartShipmentBuy: undefined
+  NewProduct: undefined
 }
 
 interface Props{
-  navigation: StackNavigationProp<RootStackParamList, 'ShoppingCart'>
+  navigation: StackNavigationProp<RootStackParamList, 'CartShipmentBuy'>
 }
 
 const RegisterStock: React.FC<Props> = ({ navigation }: Props) => {
@@ -128,9 +129,17 @@ const RegisterStock: React.FC<Props> = ({ navigation }: Props) => {
         )}
       />
 
+      <TouchableOpacity
+        onPress={() => navigation.navigate('NewProduct')}
+        activeOpacity={0.7}
+        style={styles.buttonAdd}
+      >
+        <MaterialIcons name="add" size={40} color="#fff" />
+      </TouchableOpacity>
+
       <FooterCart
         amountCart={amountCart}
-        handleCart={() => navigation.navigate('ShoppingCart')}
+        handleCart={() => navigation.navigate('CartShipmentBuy')}
         lengthCart={cart.length}
       />
 

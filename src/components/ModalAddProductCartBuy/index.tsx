@@ -39,7 +39,7 @@ const ModalAddProductCartBuy: React.FC<Props> = ({
 
   useEffect(() => {
     sumAmountValue(amount);
-  }, [discount]);
+  }, [discount, unitaryValue, amount]);
 
   function sumAmountValue(amountResult: number) {
     setAmountValue(amountResult * Number(unitaryValue));
@@ -143,6 +143,7 @@ const ModalAddProductCartBuy: React.FC<Props> = ({
                     unitaryDiscount: discount === '' ? 0 : discount,
                     amountTotal: amountValue,
                   });
+                  setUnitaryValue('');
                   setVisible(false);
                   setAmount(0);
                   setAmountValue(0);

@@ -41,7 +41,13 @@ const styles = StyleSheet.create({
     marginRight: 15,
     fontWeight: '700',
   },
-  buttonAdd: {},
+  buttonAdd: {
+    position: 'absolute',
+    bottom: 90,
+    right: 15,
+    backgroundColor: colors.primaryColorLinear[0],
+    borderRadius: 10,
+  },
 
 });
 

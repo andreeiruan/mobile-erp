@@ -65,7 +65,9 @@ const Sales: React.FC<Props> = ({ navigation }) => {
   const [loadSale, setLoadSale] = useState<boolean>(false);
   const [loadFlatList, setLoadFlatList] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+
   const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
+  const [year, setYear] = useState<number>(new Date().getFullYear());
 
   const [saleAmount, setSaleAmount] = useState<number>(0);
   const [numberSales, setNumberSales] = useState<number>(0);
@@ -82,6 +84,8 @@ const Sales: React.FC<Props> = ({ navigation }) => {
   function addMonth() {
     if (month === 12) {
       setMonth(1);
+      const newYear = year + 1;
+      setYear(newYear);
     } else {
       setMonth(month + 1);
     }
@@ -90,6 +94,8 @@ const Sales: React.FC<Props> = ({ navigation }) => {
   function removeMonth() {
     if (month === 1) {
       setMonth(12);
+      const previousYear = year - 1;
+      setYear(previousYear);
     } else {
       setMonth(month - 1);
     }
@@ -100,8 +106,7 @@ const Sales: React.FC<Props> = ({ navigation }) => {
     const { data } = await api.get('/sales', {
       params: {
         month,
-        year: month - 1 > new Date().getMonth()
-          ? new Date().getFullYear() - 1 : new Date().getFullYear(),
+        year,
       },
     });
 
@@ -120,8 +125,7 @@ const Sales: React.FC<Props> = ({ navigation }) => {
     const { data } = await api.get('/sales', {
       params: {
         month,
-        year: month - 1 > new Date().getMonth()
-          ? new Date().getFullYear() - 1 : new Date().getFullYear(),
+        year,
       },
     });
 
@@ -142,7 +146,7 @@ const Sales: React.FC<Props> = ({ navigation }) => {
 
   useEffect(() => {
     getSales();
-  }, [month]);
+  }, [month, year]);
 
   async function showModalSale(id: string) {
     await getSale(id);
@@ -153,8 +157,7 @@ const Sales: React.FC<Props> = ({ navigation }) => {
     const { data } = await api.get('/report/financial/simple', {
       params: {
         month,
-        year: month - 1 > new Date().getMonth()
-          ? new Date().getFullYear() - 1 : new Date().getFullYear(),
+        year,
       },
     });
 

@@ -226,7 +226,7 @@ const Shipment: React.FC<Props> = ({ navigation }) => {
             />
           ) : (
             <View style={styles.boxSad}>
-              <Text style={styles.textSad}>Você não tem nenhuma venda ainda esse mês</Text>
+              <Text style={styles.textSad}>Você não tem nenhuma compra esse mês</Text>
               <Entypo name="emoji-sad" size={40} color={colors.primaryFontColor} />
             </View>
           )}

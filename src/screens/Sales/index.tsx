@@ -66,7 +66,15 @@ const Sales: React.FC<Props> = ({ navigation }) => {
   const [loadFlatList, setLoadFlatList] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [month, setMonth] = useState<number>(new Date().getMonth() + 1);
+
   const [saleAmount, setSaleAmount] = useState<number>(0);
+  const [numberSales, setNumberSales] = useState<number>(0);
+
+  const [shipmentAmount, setShipmentAmount] = useState<number>(0);
+  const [numberShipments, setNumberShipments] = useState<number>(0);
+
+  const [balanceAmount, setBalanceAmount] = useState<number>(0);
+  const [balancePercentage, setBalancePercentage] = useState<number>(0);
 
   const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
@@ -100,7 +108,7 @@ const Sales: React.FC<Props> = ({ navigation }) => {
     setSales(data.sales);
     if (data.sales) {
       setSalesDay(Object.keys(data.sales).sort((a, b) => Number(b) - Number(a)));
-      setSaleAmount(data.amountSale);
+      await getReportFinancialSimple();
     }
 
     setLoadFlatList(false);
@@ -120,7 +128,7 @@ const Sales: React.FC<Props> = ({ navigation }) => {
     setSales(data.sales);
     if (data.sales) {
       setSalesDay(Object.keys(data.sales).sort((a, b) => Number(b) - Number(a)));
-      setSaleAmount(data.amountSale);
+      await getReportFinancialSimple();
     }
 
     setLoadSale(false);
@@ -139,6 +147,29 @@ const Sales: React.FC<Props> = ({ navigation }) => {
   async function showModalSale(id: string) {
     await getSale(id);
     setModalVisible(true);
+  }
+
+  async function getReportFinancialSimple() {
+    const { data } = await api.get('/report/financial/simple', {
+      params: {
+        month,
+        year: month - 1 > new Date().getMonth()
+          ? new Date().getFullYear() - 1 : new Date().getFullYear(),
+      },
+    });
+
+    if (data.reportSaleMonth) {
+      const { reportSaleMonth, reportPurchasesMonth, balance } = data;
+
+      setSaleAmount(reportSaleMonth.amountValue || 0);
+      setNumberSales(reportSaleMonth.numberSales || 0);
+
+      setShipmentAmount(reportPurchasesMonth.amountValue || 0);
+      setNumberShipments(reportPurchasesMonth.numberPurchases || 0);
+
+      setBalanceAmount(balance.balanceAmount || 0);
+      setBalancePercentage(balance.balancePercentage || 0);
+    }
   }
 
   return (
@@ -183,18 +214,21 @@ const Sales: React.FC<Props> = ({ navigation }) => {
       >
 
         <View style={styles.boxInfoValue}>
-          <Text style={styles.text}>Total de vendas</Text>
+          <Text style={styles.text}>Vendas</Text>
+          <Text style={styles.textInfo}>{numberSales}</Text>
           <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
         </View>
 
         <View style={styles.boxInfoValue}>
-          <Text style={styles.text}>Total de gastos</Text>
-          <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
+          <Text style={styles.text}>Compras</Text>
+          <Text style={styles.textInfo}>{numberShipments}</Text>
+          <Text style={styles.textInfo}>{`R$ ${shipmentAmount.toFixed(2)}`}</Text>
         </View>
 
         <View style={styles.boxInfoValue}>
           <Text style={styles.text}>Lucro total</Text>
-          <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
+          <Text style={styles.textInfo}>{`R$ ${balanceAmount.toFixed(2)}`}</Text>
+          <Text style={styles.textInfo}>{`${balancePercentage}%`}</Text>
         </View>
 
       </ScrollView>

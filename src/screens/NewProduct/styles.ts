@@ -26,12 +26,12 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   label: {
-    fontSize: 22,
+    fontSize: 18,
     color: colors.primaryFontColor,
     fontWeight: '500',
   },
   input: {
-    height: 40,
+    height: 35,
     backgroundColor: colors.menuColor,
     borderRadius: 5,
     shadowColor: '#222',

@@ -110,8 +110,8 @@ const ModalSale: React.FC<Props> = ({ visible, setVisible, sale }: Props) => {
             >
               <AntDesign
                 name="closecircleo"
-                size={45}
-                style={{ marginTop: -25 }}
+                size={35}
+                style={{ marginTop: -15 }}
                 color={colors.titleFontColor}
               />
             </TouchableOpacity>

@@ -4,10 +4,10 @@ import { colors } from '../../styles.global';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.primaryColorLinear[0],
+    backgroundColor: colors.menuColor,
     bottom: 0,
     borderTopStartRadius: 80,
-    marginTop: '30%',
+    marginTop: '20%',
     width: '100%',
     alignSelf: 'center',
     borderRadius: 5,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 22,
-    color: colors.titleFontColor,
+    color: colors.primaryColor,
   },
   buttonClose: {
     marginRight: 20,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   boxForm: {
     backgroundColor: colors.menuColor,
     height: '100%',
-    marginTop: 20,
+    marginTop: 0,
     paddingTop: 20,
   },
   labelInput: {
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     shadowColor: '#000',
     shadowOpacity: 0.3,
-    shadowOffset: { width: 2, height: 1 },
+    shadowOffset: { width: 2, height: 3 },
     elevation: 3,
   },
   boxInfo: {
@@ -62,14 +62,14 @@ const styles = StyleSheet.create({
     marginTop: '10%',
   },
   textNameProduct: {
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: colors.highlightedFontColor,
+    color: colors.primaryFontColor,
   },
   valueProduct: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: colors.highlightedFontColor,
+    color: colors.primaryFontColor,
   },
   boxAmount: {
     marginLeft: '10%',
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     position: 'absolute',
-    bottom: 25,
+    bottom: '10%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

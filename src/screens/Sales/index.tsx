@@ -218,20 +218,20 @@ const Sales: React.FC<Props> = ({ navigation }) => {
 
         <View style={styles.boxInfoValue}>
           <Text style={styles.text}>Vendas</Text>
-          <Text style={styles.textInfo}>{numberSales}</Text>
           <Text style={styles.textInfo}>{`R$ ${saleAmount.toFixed(2)}`}</Text>
+          <Text style={styles.textInfo}>{`Quantidade ${numberSales}`}</Text>
         </View>
 
         <View style={styles.boxInfoValue}>
           <Text style={styles.text}>Compras</Text>
-          <Text style={styles.textInfo}>{numberShipments}</Text>
           <Text style={styles.textInfo}>{`R$ ${shipmentAmount.toFixed(2)}`}</Text>
+          <Text style={styles.textInfo}>{`Quantidade: ${numberShipments}`}</Text>
         </View>
 
         <View style={styles.boxInfoValue}>
           <Text style={styles.text}>Lucro total</Text>
-          <Text style={styles.textInfo}>{`R$ ${balanceAmount.toFixed(2)}`}</Text>
           <Text style={styles.textInfo}>{`${balancePercentage}%`}</Text>
+          <Text style={styles.textInfo}>{`R$ ${balanceAmount.toFixed(2)}`}</Text>
         </View>
 
       </ScrollView>

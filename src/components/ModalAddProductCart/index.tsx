@@ -116,7 +116,7 @@ const ModalAddProductCart: React.FC<Props> = ({
                   setDiscount(0);
                 }}
               >
-                <AntDesign name="closecircleo" size={35} color={colors.highlightedFontColor} />
+                <AntDesign name="closecircleo" size={35} color={colors.primaryFontColor} />
               </TouchableOpacity>
 
             </View>
@@ -131,7 +131,7 @@ const ModalAddProductCart: React.FC<Props> = ({
                   style={styles.buttonAmount}
                   onPress={removeAmount}
                 >
-                  <Ionicons name="remove" size={28} color={colors.primaryFontColor} />
+                  <Ionicons name="remove" size={24} color={colors.primaryFontColor} />
                 </TouchableOpacity>
 
                 <Text style={styles.textAmount}>{amount}</Text>
@@ -141,7 +141,7 @@ const ModalAddProductCart: React.FC<Props> = ({
                   style={styles.buttonAmount}
                   onPress={addAmount}
                 >
-                  <Ionicons name="add" size={28} color={colors.primaryFontColor} />
+                  <Ionicons name="add" size={24} color={colors.primaryFontColor} />
                 </TouchableOpacity>
 
               </View>

@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     marginTop: '19%',
   },
   boxShipments: {
-    marginTop: 20,
+    marginTop: 10,
     width: '90%',
     alignSelf: 'center',
   },

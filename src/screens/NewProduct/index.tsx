@@ -117,22 +117,22 @@ const NewProduct: React.FC<Props> = ({ navigation }) => {
         </View>
 
         <View style={styles.boxInput}>
-          <Text style={styles.label}>Valor de Venda</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Valor de Venda"
-            value={String(saleValue)}
-            onChangeText={setSaleValue}
-          />
-        </View>
-
-        <View style={styles.boxInput}>
           <Text style={styles.label}>Valor unitário da compra</Text>
           <TextInput
             style={styles.input}
             placeholder="Valor unitário da compra"
             value={String(unitaryValue)}
             onChangeText={setUnitaryValue}
+          />
+        </View>
+
+        <View style={styles.boxInput}>
+          <Text style={styles.label}>Valor de Venda</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Valor de Venda"
+            value={String(saleValue)}
+            onChangeText={setSaleValue}
           />
         </View>
 

@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     width: '100%',
-    marginTop: 25,
+    marginTop: '5%',
   },
   row: {
     flexDirection: 'row',
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 85,
     backgroundColor: colors.menuColor,
     shadowColor: '#222',
-    shadowOffset: { width: 2, height: 3 },
+    shadowOffset: { width: -2, height: -3 },
     shadowOpacity: 0.3,
 
   },
@@ -41,10 +41,10 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   textNameClient: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
     color: colors.titleFontColor,
-    marginLeft: 25,
+    marginLeft: 20,
     marginTop: 15,
     marginBottom: 20,
   },
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   textInfo: {
     fontSize: 18,
     color: colors.titleFontColor,
-    marginLeft: 25,
+    marginLeft: 20,
     fontWeight: '700',
   },
   textPayment: {
@@ -69,7 +69,8 @@ const styles = StyleSheet.create({
   },
   footer: {
     width: '100%',
-    padding: 10,
+    paddingVertical: 30,
+    paddingHorizontal: 20,
   },
   textSaleTotal: {
     fontWeight: '700',

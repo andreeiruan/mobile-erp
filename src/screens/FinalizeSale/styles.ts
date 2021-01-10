@@ -6,12 +6,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: '20%',
+    height: '15%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
-    fontSize: 25,
+    fontSize: 24,
     fontWeight: 'bold',
     color: colors.highlightedFontColor,
     marginTop: '10%',
@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   textSelect: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '500',
     color: colors.primaryFontColor,
   },
   label: {
-    fontSize: 22,
+    fontSize: 18,
     color: colors.titleFontColor,
     fontWeight: 'bold',
   },
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '500',
     marginTop: 5,
     backgroundColor: colors.inputBackgroundColor,
     color: colors.secondaryFontColor,
@@ -101,10 +101,10 @@ const styles = StyleSheet.create({
   textError: {
     fontSize: 18,
     alignSelf: 'center',
-    marginBottom: 15,
-    marginTop: 5,
+    marginBottom: 25,
+    marginTop: 10,
     color: colors.errorFontColor,
-    height: 15,
+    height: 25,
   },
   inputSelect: {},
 });

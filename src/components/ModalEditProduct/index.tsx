@@ -116,8 +116,8 @@ const ModalEditProduct: React.FC<Props> = ({ visible, setVisible, product }: Pro
             >
               <AntDesign
                 name="closecircleo"
-                size={45}
-                color={colors.primaryColorLinear[0]}
+                size={35}
+                color={colors.primaryFontColor}
               />
             </TouchableOpacity>
 

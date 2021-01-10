@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'center',
-    width: '80%',
+    width: '60%',
     justifyContent: 'space-between',
   },
   boxInfo: {
@@ -46,13 +46,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 3, height: 1 },
   },
   titleInfo: {
-    fontSize: 24,
+    fontSize: 22,
     alignSelf: 'center',
     color: colors.highlightedFontColor,
     fontWeight: '700',
   },
   textInfo: {
-    fontSize: 20,
+    fontSize: 18,
     marginTop: 5,
     color: colors.primaryFontColor,
     fontWeight: '700',
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   text: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
     marginRight: 10,
     color: colors.titleFontColor,
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textSad: {
-    fontSize: 25,
+    fontSize: 24,
     fontWeight: '500',
     color: colors.primaryFontColor,
     textAlign: 'center',

@@ -1,7 +1,10 @@
 import React from 'react';
-import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
+import {
+  createStackNavigator, StackNavigationOptions,
+} from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { Platform } from 'react-native';
 import Sales from '../screens/Sales';
 import Products from '../screens/Products';
 import Sell from '../screens/Sell';
@@ -46,6 +49,7 @@ const screenOptionsStack: StackNavigationOptions = {
   headerTitleStyle: {
     fontWeight: 'bold',
   },
+
 };
 
 const StackStock: React.FC = () => (
@@ -90,18 +94,16 @@ const StackSell: React.FC = () => (
 const PrivateRoutes: React.FC = () => (
   <Tab.Navigator
     tabBarOptions={{
+      keyboardHidesTabBar: true,
       activeBackgroundColor: colors.menuColor,
       inactiveBackgroundColor: colors.menuColor,
       activeTintColor: colors.menuActiveFontColor,
       inactiveTintColor: '#000',
-      labelStyle: { fontSize: 13, marginBottom: 5, fontWeight: '600' },
+      labelStyle: { fontSize: 12, fontWeight: '700' },
       style: {
-        height: 55,
-        borderTopWidth: 5,
-        borderTopColor: colors.menuColor,
-      },
-      iconStyle: {
-        marginTop: 10,
+        height: '8%',
+        paddingVertical: 5,
+        borderTopColor: 'rgba(255, 255, 255, 0.4)',
       },
     }}
   >

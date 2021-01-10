@@ -22,8 +22,8 @@ const InputSearchHeader: React.FC<Props> = ({ search, setSearch }) => (
         <FontAwesome
           name="search"
           style={styles.iconInput}
-          size={24}
-          color={colors.secondaryFontColor}
+          size={20}
+          color={colors.primaryFontColor}
         />
         <TextInput
           placeholder="Pesquisa ..."
@@ -42,26 +42,26 @@ const InputSearchHeader: React.FC<Props> = ({ search, setSearch }) => (
 
 const styles = StyleSheet.create({
   header: {
-    height: '25%',
+    height: '20%',
   },
   boxSearch: {
-    marginTop: '10%',
+    marginTop: '15%',
     width: '90%',
     alignSelf: 'center',
     marginBottom: 30,
   },
   label: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     color: colors.highlightedFontColor,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   iconInput: {
     marginRight: 10,
   },
   boxInput: {
     paddingVertical: 5,
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
     borderRadius: 5,
     flexDirection: 'row',
     alignItems: 'center',
@@ -72,7 +72,10 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   inputSearch: {
-    fontSize: 22,
+    fontSize: 18,
+    fontWeight: '500',
+    width: '100%',
+    height: '100%',
   },
 });
 

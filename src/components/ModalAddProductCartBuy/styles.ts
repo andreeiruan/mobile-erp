@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.menuColor,
     bottom: 0,
     borderTopStartRadius: 80,
-    marginTop: '50%',
+    marginTop: '30%',
     width: '100%',
     alignSelf: 'center',
     borderRadius: 5,
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     position: 'absolute',
-    bottom: 25,
+    bottom: '8%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   textProvider: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
     color: colors.titleFontColor,
     marginLeft: 25,

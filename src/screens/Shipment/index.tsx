@@ -123,6 +123,8 @@ const Shipment: React.FC<Props> = ({ navigation }) => {
   useEffect(() => {
     if (shipments.length > 0) {
       setShipmentAmount(shipments?.map((s) => s.amountValue).reduce((s, n) => s + n));
+    } else {
+      setShipmentAmount(0);
     }
   }, [shipments]);
 
